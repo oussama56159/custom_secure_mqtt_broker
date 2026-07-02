@@ -1,4 +1,7 @@
-For the first time, you create the admin when you initialize the Dynamic Security file.
+mosquitto_ctrl is a command-line administration tool that comes with the Mosquitto MQTT broker. Its purpose is to manage Dynamic Security add/edit users and roles 
+
+first time only create admin+initialize the Dynamic Security file.
+
 Command:
 & 'C:\Program Files\mosquitto\mosquitto_ctrl.exe' dynsec init 'C:\custom_secure_mqtt_broker\secure-mqtt-broker\dynamic-security.json' admin 906271
 
@@ -6,26 +9,28 @@ This creates:
 username: admin
 password: 906271
 role: admin
-NOTE!!
+
+note 
 Roles are created inside Dynamic Security, and they are saved in:
 C:\custom_secure_mqtt_broker\secure-mqtt-broker\dynamic-security.json
 
 Example command that creates a role:
 & 'C:\Program Files\mosquitto\mosquitto_ctrl.exe' -h localhost -p 1884 -u admin -P 906271 dynsec createRole my_role
+
 Then you add permissions to that role:
 & 'C:\Program Files\mosquitto\mosquitto_ctrl.exe' -h localhost -p 1884 -u admin -P 906271 dynsec addRoleACL my_role publishClientSend sensors/mytopic allow
+
 Then you assign it to a user:
 & 'C:\Program Files\mosquitto\mosquitto_ctrl.exe' -h localhost -p 1884 -u admin -P 906271 dynsec addClientRole s1 my_role
+
 So the full flow is:
 1. createRole
-2. addRoleACL
+2. addRoleACL (acl=access controle list )
 3. addClientRole
 
 
 
 A user is the account that connects to the broker.
-
-
 So:
 user = who connects
 role = what they are allowed to do
@@ -68,14 +73,6 @@ MAKE_ADMIN = True
 it also gives s1 the admin role.
 
 What add_sub.py Does
-
-It creates a new subscriber user.
-Inside the file, you set:
-SUBSCRIBER_NAME = "dash1"
-SUBSCRIBER_PASSWORD = "906271"
-ALLOWED_TOPIC = "sensors/#" means it gets from evryone 
-
-
 When you run:
 python add_sub.py
 It does this:

@@ -280,3 +280,51 @@
 1782978430: New connection from ::1:63173 on port 1884.
 1782978430: New client connected from ::1:63173 as auto-0ABE6CE8-3269-4C67-FFC7-1A521F6AE73D (p4, c1, k60, u'temperature_sensor').
 1782978430: Client auto-0ABE6CE8-3269-4C67-FFC7-1A521F6AE73D [::1:63173] disconnected.
+1782978575: New connection from ::1:63429 on port 1884.
+1782978575: New client connected from ::1:63429 as auto-D50B9FE6-27CB-A1C3-2CDE-4B386924343B (p4, c1, k60, u'temperature_sensor').
+1782978575: New connection from ::1:63430 on port 1884.
+1782978575: Client auto-D50B9FE6-27CB-A1C3-2CDE-4B386924343B [::1:63429] disconnected.
+1782978575: New client connected from ::1:63430 as auto-B156CFCB-513A-A61B-413F-5D0D6CAA341C (p5, c1, k60, u'admin').
+1782978575: dynsec: auto-B156CFCB-513A-A61B-413F-5D0D6CAA341C/admin | listClients | verbose=false | count=-1 | offset=0
+1782978575: Client auto-B156CFCB-513A-A61B-413F-5D0D6CAA341C [::1:63430] disconnected: connection closed by client.
+1782978652: New connection from ::1:63438 on port 1884.
+1782978652: New client connected from ::1:63438 as auto-B9F74374-4898-04EC-E898-B9D7F579D650 (p4, c1, k60, u'temperature_sensor').
+1782978652: Client auto-B9F74374-4898-04EC-E898-B9D7F579D650 [::1:63438] disconnected.
+1782978679: New connection from ::1:54916 on port 1884.
+1782978679: New client connected from ::1:54916 as auto-F1253CBF-FBBD-1258-F81E-BC68DA429A06 (p4, c1, k60, u'attacker').
+1782978679: Client auto-F1253CBF-FBBD-1258-F81E-BC68DA429A06 [::1:54916] disconnected.
+1782978697: New connection from ::1:55700 on port 1884.
+1782978697: New client connected from ::1:55700 as auto-2BFBEA20-E480-CCD6-9F9E-136F65CCDABF (p4, c1, k60, u'temperature_sensor').
+1782978697: Client auto-2BFBEA20-E480-CCD6-9F9E-136F65CCDABF [::1:55700] disconnected.
+1782979324: New connection from ::1:51455 on port 1884.
+1782979324: New client connected from ::1:51455 as auto-ABADF516-DDA5-6011-869D-988CF9944570 (p5, c1, k60, u'admin').
+1782979324: Client auto-ABADF516-DDA5-6011-869D-988CF9944570 [::1:51455] disconnected: connection closed by client.
+1782979324: New connection from ::1:51458 on port 1884.
+1782979324: New client connected from ::1:51458 as auto-B82E66D7-5882-1A15-A9F5-46C992D7D83A (p5, c1, k60, u'admin').
+1782979324: dynsec: auto-B82E66D7-5882-1A15-A9F5-46C992D7D83A/admin | setClientPassword | username=new_sensor | password=******
+1782979324: Client auto-B82E66D7-5882-1A15-A9F5-46C992D7D83A [::1:51458] disconnected: connection closed by client.
+1782979324: New connection from ::1:51461 on port 1884.
+1782979324: New client connected from ::1:51461 as auto-3AC5CD72-459C-7033-F31E-FA4C30FF12A8 (p5, c1, k60, u'admin').
+1782979324: Client auto-3AC5CD72-459C-7033-F31E-FA4C30FF12A8 [::1:51461] disconnected: connection closed by client.
+1782979324: New connection from ::1:51464 on port 1884.
+1782979324: New client connected from ::1:51464 as auto-1941D00D-218A-52D7-03FF-61C2070064B0 (p5, c1, k60, u'admin').
+1782979324: dynsec: auto-1941D00D-218A-52D7-03FF-61C2070064B0/admin | addRoleACL | rolename=new_sensor_publisher | acltype=publishClientSend | topic=sensors/new_sensor | priority=0 | allow=true
+1782979324: Client auto-1941D00D-218A-52D7-03FF-61C2070064B0 [::1:51464] disconnected: connection closed by client.
+1782979324: New connection from ::1:51467 on port 1884.
+1782979324: New client connected from ::1:51467 as auto-291AA868-4CB8-CFD7-22A4-2BD9118DA20F (p5, c1, k60, u'admin').
+1782979324: Client auto-291AA868-4CB8-CFD7-22A4-2BD9118DA20F [::1:51467] disconnected: connection closed by client.
+1782979380: New connection from ::1:54015 on port 1884.
+1782979380: New client connected from ::1:54015 as auto-CCAB1115-4502-1F49-F3CD-1CA43365254B (p5, c1, k60, u'admin').
+1782979380: dynsec: auto-CCAB1115-4502-1F49-F3CD-1CA43365254B/admin | listRoles | verbose=false | count=-1 | offset=0
+1782979380: Client auto-CCAB1115-4502-1F49-F3CD-1CA43365254B [::1:54015] disconnected: connection closed by client.
+1782979422: Saving in-memory database to C:\custom_secure_mqtt_broker\secure-mqtt-broker\data\\mosquitto.db.
+1782981223: Saving in-memory database to C:\custom_secure_mqtt_broker\secure-mqtt-broker\data\\mosquitto.db.
+1782983024: Saving in-memory database to C:\custom_secure_mqtt_broker\secure-mqtt-broker\data\\mosquitto.db.
+1782984825: Saving in-memory database to C:\custom_secure_mqtt_broker\secure-mqtt-broker\data\\mosquitto.db.
+1782985372: Client auto-60064675-26F9-6179-2AF6-F8336155F811 [::1:61381] disconnected: connection closed by client.
+1782986626: Saving in-memory database to C:\custom_secure_mqtt_broker\secure-mqtt-broker\data\\mosquitto.db.
+1782988427: Saving in-memory database to C:\custom_secure_mqtt_broker\secure-mqtt-broker\data\\mosquitto.db.
+1782994702: Saving in-memory database to C:\custom_secure_mqtt_broker\secure-mqtt-broker\data\\mosquitto.db.
+1782999216: Saving in-memory database to C:\custom_secure_mqtt_broker\secure-mqtt-broker\data\\mosquitto.db.
+1783001017: Saving in-memory database to C:\custom_secure_mqtt_broker\secure-mqtt-broker\data\\mosquitto.db.
+1783002818: Saving in-memory database to C:\custom_secure_mqtt_broker\secure-mqtt-broker\data\\mosquitto.db.
