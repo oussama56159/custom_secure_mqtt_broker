@@ -1,0 +1,25 @@
+1. Start The Broker
+cd C:\custom_secure_mqtt_broker\secure-mqtt-broker
+.\start_broker.bat
+Leave this window open. 
+
+2. Open A Second PowerShell Window
+Run the dashboard subscriber:
+& 'C:\Program Files\mosquitto\mosquitto_sub.exe' -h localhost -p 1884 -u dashboard -P 906271 -t sensors/#
+Leave it waiting.
+
+3. Open A Third PowerShell Window
+Publish as the authorized sensor:
+& 'C:\Program Files\mosquitto\mosquitto_pub.exe' -h localhost -p 1884 -u temperature_sensor -P 906271 -t sensors/temperature -m "25.6"
+In the subscriber window, you should see:
+25.6
+
+4. Test Unauthorized User
+Try attacker:
+& 'C:\Program Files\mosquitto\mosquitto_pub.exe' -h localhost -p 1884 -u attacker -P 906271 -t sensors/temperature -m "hacked"
+The dashboard should not receive hacked.
+
+5. Test Wrong Topic
+Try the temperature sensor on a topic it is not allowed to publish to:
+& 'C:\Program Files\mosquitto\mosquitto_pub.exe' -h localhost -p 1884 -u temperature_sensor -P 906271 -t sensors/humidity -m "60"
+The dashboard should not receive 60.

@@ -1,0 +1,282 @@
+1782973282: mosquitto version 2.1.2 starting
+1782973282: Config loaded from C:\iot\secure-mqtt-broker\mosquitto-secure.conf.
+1782973282: Bridge support available.
+1782973282: Persistence support available.
+1782973282: TLS support available.
+1782973282: TLS-PSK support available.
+1782973282: Websockets support available.
+1782973282: Loading plugin: C:\Program Files\mosquitto\mosquitto_dynamic_security.dll
+1782973282: Plugin dynamic-security has registered to receive 'control' events on topic $CONTROL/dynamic-security/v1.
+1782973282: Plugin dynamic-security has registered to receive 'basic-auth' events.
+1782973282: Plugin dynamic-security has registered to receive 'acl-check' events.
+1782973282: Plugin dynamic-security has registered to receive 'tick' events.
+1782973282: Plugin dynamic-security loaded.
+1782973282: Opening ipv6 listen socket on port 1884.
+1782973282: Opening ipv4 listen socket on port 1884.
+1782973282: mosquitto version 2.1.2 running
+1782973315: New connection from ::1:61644 on port 1884.
+1782973315: New client connected from ::1:61644 as auto-31393E7C-3E68-0F75-03D0-98843286DBBC (p5, c1, k60, u'admin').
+1782973315: dynsec: auto-31393E7C-3E68-0F75-03D0-98843286DBBC/admin | setDefaultACLAccess | acltype=publishClientSend | allow=false
+1782973315: Client auto-31393E7C-3E68-0F75-03D0-98843286DBBC [::1:61644] disconnected: connection closed by client.
+1782973315: New connection from ::1:61647 on port 1884.
+1782973315: New client connected from ::1:61647 as auto-F9870895-C206-A8DC-C14A-EE81C880B083 (p5, c1, k60, u'admin').
+1782973315: dynsec: auto-F9870895-C206-A8DC-C14A-EE81C880B083/admin | setDefaultACLAccess | acltype=publishClientReceive | allow=false
+1782973315: Client auto-F9870895-C206-A8DC-C14A-EE81C880B083 [::1:61647] disconnected: connection closed by client.
+1782973316: New connection from ::1:61650 on port 1884.
+1782973316: New client connected from ::1:61650 as auto-CC75E842-CC56-6EBF-FF6E-799182A71792 (p5, c1, k60, u'admin').
+1782973316: dynsec: auto-CC75E842-CC56-6EBF-FF6E-799182A71792/admin | createRole | rolename=temperature_publisher
+1782973316: Client auto-CC75E842-CC56-6EBF-FF6E-799182A71792 [::1:61650] disconnected: connection closed by client.
+1782973316: New connection from ::1:61653 on port 1884.
+1782973316: New client connected from ::1:61653 as auto-8792B7A7-443C-CEA6-A5EF-C127541E7C56 (p5, c1, k60, u'admin').
+1782973316: dynsec: auto-8792B7A7-443C-CEA6-A5EF-C127541E7C56/admin | addRoleACL | rolename=temperature_publisher | acltype=publishClientSend | topic=sensors/temperature | priority=0 | allow=true
+1782973316: Client auto-8792B7A7-443C-CEA6-A5EF-C127541E7C56 [::1:61653] disconnected: connection closed by client.
+1782973316: New connection from ::1:61656 on port 1884.
+1782973316: New client connected from ::1:61656 as auto-75EEC365-752E-8006-4A8D-4F88ECED36A9 (p5, c1, k60, u'admin').
+1782973316: dynsec: auto-75EEC365-752E-8006-4A8D-4F88ECED36A9/admin | createRole | rolename=dashboard_reader
+1782973316: Client auto-75EEC365-752E-8006-4A8D-4F88ECED36A9 [::1:61656] disconnected: connection closed by client.
+1782973316: New connection from ::1:61659 on port 1884.
+1782973316: New client connected from ::1:61659 as auto-BAF01A08-995A-BB2A-3924-CFA8330C0656 (p5, c1, k60, u'admin').
+1782973316: dynsec: auto-BAF01A08-995A-BB2A-3924-CFA8330C0656/admin | addRoleACL | rolename=dashboard_reader | acltype=subscribePattern | topic=sensors/# | priority=0 | allow=true
+1782973316: Client auto-BAF01A08-995A-BB2A-3924-CFA8330C0656 [::1:61659] disconnected: connection closed by client.
+1782973316: New connection from ::1:61662 on port 1884.
+1782973316: New client connected from ::1:61662 as auto-9B20628D-730B-070F-8DFF-9795F85F778F (p5, c1, k60, u'admin').
+1782973316: dynsec: auto-9B20628D-730B-070F-8DFF-9795F85F778F/admin | addRoleACL | rolename=dashboard_reader | acltype=publishClientReceive | topic=sensors/# | priority=0 | allow=true
+1782973316: Client auto-9B20628D-730B-070F-8DFF-9795F85F778F [::1:61662] disconnected: connection closed by client.
+1782973316: New connection from ::1:61665 on port 1884.
+1782973316: New client connected from ::1:61665 as auto-374F3EF4-A783-F571-A1E4-595F89F7358F (p5, c1, k60, u'admin').
+1782973316: dynsec: auto-374F3EF4-A783-F571-A1E4-595F89F7358F/admin | createGroup | groupname=sensor_devices
+1782973316: Client auto-374F3EF4-A783-F571-A1E4-595F89F7358F [::1:61665] disconnected: connection closed by client.
+1782973316: New connection from ::1:61668 on port 1884.
+1782973316: New client connected from ::1:61668 as auto-53E558F0-9967-B843-E238-491C1FA77323 (p5, c1, k60, u'admin').
+1782973316: dynsec: auto-53E558F0-9967-B843-E238-491C1FA77323/admin | createGroup | groupname=dashboards
+1782973316: Client auto-53E558F0-9967-B843-E238-491C1FA77323 [::1:61668] disconnected: connection closed by client.
+1782973316: New connection from ::1:61671 on port 1884.
+1782973316: New client connected from ::1:61671 as auto-80C3A8A3-F13E-9148-C3FD-FFAB68E9F366 (p5, c1, k60, u'admin').
+1782973316: dynsec: auto-80C3A8A3-F13E-9148-C3FD-FFAB68E9F366/admin | createGroup | groupname=blocked_clients
+1782973316: Client auto-80C3A8A3-F13E-9148-C3FD-FFAB68E9F366 [::1:61671] disconnected: connection closed by client.
+1782973316: New connection from ::1:61674 on port 1884.
+1782973316: New client connected from ::1:61674 as auto-5BEC0CBA-AC88-45B4-59C6-F7268099CA22 (p5, c1, k60, u'admin').
+1782973316: dynsec: auto-5BEC0CBA-AC88-45B4-59C6-F7268099CA22/admin | addGroupRole | groupname=sensor_devices | rolename=temperature_publisher | priority=-1
+1782973316: Client auto-5BEC0CBA-AC88-45B4-59C6-F7268099CA22 [::1:61674] disconnected: connection closed by client.
+1782973316: New connection from ::1:61677 on port 1884.
+1782973316: New client connected from ::1:61677 as auto-B42E90C1-70C0-1083-A3D1-6E2737B0BE87 (p5, c1, k60, u'admin').
+1782973316: dynsec: auto-B42E90C1-70C0-1083-A3D1-6E2737B0BE87/admin | addGroupRole | groupname=dashboards | rolename=dashboard_reader | priority=-1
+1782973316: Client auto-B42E90C1-70C0-1083-A3D1-6E2737B0BE87 [::1:61677] disconnected: connection closed by client.
+1782973316: New connection from ::1:61680 on port 1884.
+1782973316: New client connected from ::1:61680 as auto-10611A1A-3A13-ED62-32FC-7A8CBB9751CB (p5, c1, k60, u'admin').
+1782973316: dynsec: auto-10611A1A-3A13-ED62-32FC-7A8CBB9751CB/admin | createClient | username=temperature_sensor | password=*****
+1782973316: Client auto-10611A1A-3A13-ED62-32FC-7A8CBB9751CB [::1:61680] disconnected: connection closed by client.
+1782973316: New connection from ::1:61683 on port 1884.
+1782973316: New client connected from ::1:61683 as auto-9FCF444A-75B9-329F-1FC8-6ED41802CBC2 (p5, c1, k60, u'admin').
+1782973316: dynsec: auto-9FCF444A-75B9-329F-1FC8-6ED41802CBC2/admin | createClient | username=dashboard | password=*****
+1782973316: Client auto-9FCF444A-75B9-329F-1FC8-6ED41802CBC2 [::1:61683] disconnected: connection closed by client.
+1782973316: New connection from ::1:61686 on port 1884.
+1782973316: New client connected from ::1:61686 as auto-879AF3AE-2645-1A79-3D13-3B41AB1D82D0 (p5, c1, k60, u'admin').
+1782973316: dynsec: auto-879AF3AE-2645-1A79-3D13-3B41AB1D82D0/admin | createClient | username=attacker | password=*****
+1782973316: Client auto-879AF3AE-2645-1A79-3D13-3B41AB1D82D0 [::1:61686] disconnected: connection closed by client.
+1782973316: New connection from ::1:61689 on port 1884.
+1782973316: New client connected from ::1:61689 as auto-8B707D97-66D7-F766-0D69-06304BD1A73A (p5, c1, k60, u'admin').
+1782973316: dynsec: auto-8B707D97-66D7-F766-0D69-06304BD1A73A/admin | addGroupClient | groupname=sensor_devices | username=temperature_sensor | priority=-1
+1782973316: Client auto-8B707D97-66D7-F766-0D69-06304BD1A73A [::1:61689] disconnected: connection closed by client.
+1782973316: New connection from ::1:61692 on port 1884.
+1782973316: New client connected from ::1:61692 as auto-AE554BF2-9F61-7B93-9727-00283249A397 (p5, c1, k60, u'admin').
+1782973316: dynsec: auto-AE554BF2-9F61-7B93-9727-00283249A397/admin | addGroupClient | groupname=dashboards | username=dashboard | priority=-1
+1782973316: Client auto-AE554BF2-9F61-7B93-9727-00283249A397 [::1:61692] disconnected: connection closed by client.
+1782973316: New connection from ::1:61695 on port 1884.
+1782973316: New client connected from ::1:61695 as auto-42C514A8-A394-FA52-80FA-F456BC90C4CA (p5, c1, k60, u'admin').
+1782973316: dynsec: auto-42C514A8-A394-FA52-80FA-F456BC90C4CA/admin | addGroupClient | groupname=blocked_clients | username=attacker | priority=-1
+1782973316: Client auto-42C514A8-A394-FA52-80FA-F456BC90C4CA [::1:61695] disconnected: connection closed by client.
+1782973316: New connection from ::1:61698 on port 1884.
+1782973316: New client connected from ::1:61698 as auto-B7898261-1FA2-0777-13C9-1B1B3BB83E78 (p5, c1, k60, u'admin').
+1782973316: dynsec: auto-B7898261-1FA2-0777-13C9-1B1B3BB83E78/admin | listClients | verbose=false | count=-1 | offset=0
+1782973316: Client auto-B7898261-1FA2-0777-13C9-1B1B3BB83E78 [::1:61698] disconnected: connection closed by client.
+1782973317: New connection from ::1:61701 on port 1884.
+1782973317: New client connected from ::1:61701 as auto-9446F935-DCD3-4EB8-9304-CF458CB66C53 (p5, c1, k60, u'admin').
+1782973317: dynsec: auto-9446F935-DCD3-4EB8-9304-CF458CB66C53/admin | listGroups | verbose=false | count=-1 | offset=0
+1782973317: Client auto-9446F935-DCD3-4EB8-9304-CF458CB66C53 [::1:61701] disconnected: connection closed by client.
+1782973317: New connection from ::1:61704 on port 1884.
+1782973317: New client connected from ::1:61704 as auto-D12C0E2B-9787-CD21-06F5-FCBA6F773805 (p5, c1, k60, u'admin').
+1782973317: dynsec: auto-D12C0E2B-9787-CD21-06F5-FCBA6F773805/admin | listRoles | verbose=false | count=-1 | offset=0
+1782973317: Client auto-D12C0E2B-9787-CD21-06F5-FCBA6F773805 [::1:61704] disconnected: connection closed by client.
+1782973356: New connection from ::1:61712 on port 1884.
+1782973356: New client connected from ::1:61712 as auto-BB5AA66A-CE9F-CA16-CBDD-E80C611F3732 (p4, c1, k60, u'dashboard').
+1782973357: New connection from ::1:61715 on port 1884.
+1782973357: New client connected from ::1:61715 as auto-CB59DA44-57C8-95B7-0611-9C57E5950379 (p4, c1, k60, u'temperature_sensor').
+1782973357: Client auto-CB59DA44-57C8-95B7-0611-9C57E5950379 [::1:61715] disconnected: connection closed by client.
+1782973357: Client auto-BB5AA66A-CE9F-CA16-CBDD-E80C611F3732 [::1:61712] disconnected.
+1782973357: New connection from ::1:61718 on port 1884.
+1782973357: New client connected from ::1:61718 as auto-86259D03-556F-3021-6D63-4FAFC9AB9B35 (p4, c1, k60, u'attacker').
+1782973357: Client auto-86259D03-556F-3021-6D63-4FAFC9AB9B35 [::1:61718] disconnected: connection closed by client.
+1782973357: New connection from ::1:61721 on port 1884.
+1782973357: New client connected from ::1:61721 as auto-20BEAD98-AB17-89B3-DC4E-4088C17A1F6A (p4, c1, k60, u'temperature_sensor').
+1782973357: Client auto-20BEAD98-AB17-89B3-DC4E-4088C17A1F6A [::1:61721] disconnected: connection closed by client.
+1782973377: New connection from ::1:61726 on port 1884.
+1782973377: New client connected from ::1:61726 as auto-A9482937-6128-1B8B-2CFD-C44ED867B7E8 (p4, c1, k60, u'dashboard').
+1782973377: New connection from ::1:61729 on port 1884.
+1782973377: New client connected from ::1:61729 as auto-3F4534D2-1928-F33E-10D8-647E9D5037A8 (p4, c1, k60, u'attacker').
+1782973377: Client auto-3F4534D2-1928-F33E-10D8-647E9D5037A8 [::1:61729] disconnected: connection closed by client.
+1782973379: Client auto-A9482937-6128-1B8B-2CFD-C44ED867B7E8 [::1:61726] disconnected.
+1782973861: New connection from ::1:58378 on port 1884.
+1782973861: Client auto-82D3AD5C-D7DA-B078-04DA-679250906CA2 [::1:58378] disconnected: not authorised.
+1782973874: New connection from ::1:52111 on port 1884.
+1782973874: Client auto-6ECE7681-B467-F326-A7BA-1C67D73F99D5 [::1:52111] disconnected: not authorised.
+1782973874: New connection from ::1:52114 on port 1884.
+1782973874: Client auto-C14ACAB0-A53B-C03D-67C1-7EAA2838D9C0 [::1:52114] disconnected: not authorised.
+1782973874: New connection from ::1:52117 on port 1884.
+1782973874: Client auto-69FBB9AE-A624-C989-4F67-B3641590B8C7 [::1:52117] disconnected: not authorised.
+1782973874: New connection from ::1:52120 on port 1884.
+1782973874: Client auto-9EA3FE47-91D5-5D14-5FE0-B6DCC8B0CCDE [::1:52120] disconnected: not authorised.
+1782973889: New connection from ::1:64642 on port 1884.
+1782973889: New client connected from ::1:64642 as auto-AB506C0E-0367-0452-2AA1-0A3610066334 (p5, c1, k60, u'admin').
+1782973889: dynsec: auto-AB506C0E-0367-0452-2AA1-0A3610066334/admin | setClientPassword | username=temperature_sensor | password=******
+1782973889: Client auto-AB506C0E-0367-0452-2AA1-0A3610066334 [::1:64642] disconnected: connection closed by client.
+1782973889: New connection from ::1:64645 on port 1884.
+1782973889: New client connected from ::1:64645 as auto-9DBC12BA-717E-A3F5-DD57-D63D7613DA90 (p5, c1, k60, u'admin').
+1782973889: dynsec: auto-9DBC12BA-717E-A3F5-DD57-D63D7613DA90/admin | setClientPassword | username=dashboard | password=******
+1782973889: Client auto-9DBC12BA-717E-A3F5-DD57-D63D7613DA90 [::1:64645] disconnected: connection closed by client.
+1782973889: New connection from ::1:64648 on port 1884.
+1782973889: New client connected from ::1:64648 as auto-9447C0D0-E323-F834-E6DD-CB485EA97B06 (p5, c1, k60, u'admin').
+1782973889: dynsec: auto-9447C0D0-E323-F834-E6DD-CB485EA97B06/admin | setClientPassword | username=attacker | password=******
+1782973889: Client auto-9447C0D0-E323-F834-E6DD-CB485EA97B06 [::1:64648] disconnected: connection closed by client.
+1782973890: New connection from ::1:64651 on port 1884.
+1782973890: New client connected from ::1:64651 as auto-394E1827-F7BF-5031-BB64-087978BD136B (p5, c1, k60, u'admin').
+1782973890: dynsec: auto-394E1827-F7BF-5031-BB64-087978BD136B/admin | setClientPassword | username=admin | password=******
+1782973890: Client auto-394E1827-F7BF-5031-BB64-087978BD136B [::1:64651] disconnected: administrative action.
+1782973890: New connection from ::1:64654 on port 1884.
+1782973890: New client connected from ::1:64654 as auto-560376B4-536F-2920-531F-69C061E1F5F6 (p5, c1, k60, u'admin').
+1782973890: dynsec: auto-560376B4-536F-2920-531F-69C061E1F5F6/admin | listClients | verbose=false | count=-1 | offset=0
+1782973890: Client auto-560376B4-536F-2920-531F-69C061E1F5F6 [::1:64654] disconnected: connection closed by client.
+1782973904: New connection from ::1:50063 on port 1884.
+1782973904: New client connected from ::1:50063 as auto-E001460B-1B2F-D1F0-CB3F-1F2B374228BF (p4, c1, k60, u'dashboard').
+1782973905: New connection from ::1:61158 on port 1884.
+1782973905: New client connected from ::1:61158 as auto-95847AF1-5320-2DDB-8858-D86736672741 (p4, c1, k60, u'temperature_sensor').
+1782973905: Client auto-95847AF1-5320-2DDB-8858-D86736672741 [::1:61158] disconnected: connection closed by client.
+1782973905: Client auto-E001460B-1B2F-D1F0-CB3F-1F2B374228BF [::1:50063] disconnected.
+1782974563: New connection from ::1:61118 on port 1884.
+1782974563: New client connected from ::1:61118 as auto-771154F6-5DCE-1186-DA9E-98B2EA984BEF (p5, c1, k60, u'admin').
+1782974563: dynsec: auto-771154F6-5DCE-1186-DA9E-98B2EA984BEF/admin | createClient | username=humidity_sensor | password=*****
+1782974563: Client auto-771154F6-5DCE-1186-DA9E-98B2EA984BEF [::1:61118] disconnected: connection closed by client.
+1782974563: New connection from ::1:61121 on port 1884.
+1782974563: New client connected from ::1:61121 as auto-4C0CFC0E-885E-D938-FA9D-66CF56DE66B3 (p5, c1, k60, u'admin').
+1782974563: dynsec: auto-4C0CFC0E-885E-D938-FA9D-66CF56DE66B3/admin | setClientPassword | username=humidity_sensor | password=******
+1782974563: Client auto-4C0CFC0E-885E-D938-FA9D-66CF56DE66B3 [::1:61121] disconnected: connection closed by client.
+1782974563: New connection from ::1:61124 on port 1884.
+1782974563: New client connected from ::1:61124 as auto-550608F8-2A4B-8B8C-B158-8F0DEC9E609E (p5, c1, k60, u'admin').
+1782974563: dynsec: auto-550608F8-2A4B-8B8C-B158-8F0DEC9E609E/admin | createRole | rolename=humidity_sensor_publisher
+1782974563: Client auto-550608F8-2A4B-8B8C-B158-8F0DEC9E609E [::1:61124] disconnected: connection closed by client.
+1782974563: New connection from ::1:61127 on port 1884.
+1782974563: New client connected from ::1:61127 as auto-F4E217FA-6CFA-F36E-8869-9146C7247EA9 (p5, c1, k60, u'admin').
+1782974563: dynsec: auto-F4E217FA-6CFA-F36E-8869-9146C7247EA9/admin | addRoleACL | rolename=humidity_sensor_publisher | acltype=publishClientSend | topic=sensors/humidity | priority=0 | allow=true
+1782974563: Client auto-F4E217FA-6CFA-F36E-8869-9146C7247EA9 [::1:61127] disconnected: connection closed by client.
+1782974563: New connection from ::1:61130 on port 1884.
+1782974563: New client connected from ::1:61130 as auto-6576148C-397A-F0B6-6486-650A0888195D (p5, c1, k60, u'admin').
+1782974563: dynsec: auto-6576148C-397A-F0B6-6486-650A0888195D/admin | addClientRole | username=humidity_sensor | rolename=humidity_sensor_publisher | priority=-1
+1782974563: Client auto-6576148C-397A-F0B6-6486-650A0888195D [::1:61130] disconnected: connection closed by client.
+1782974580: New connection from ::1:61134 on port 1884.
+1782974580: New client connected from ::1:61134 as auto-3E535E3E-606E-A9A8-2C1A-B94A063181F4 (p4, c1, k60, u'dashboard').
+1782974580: New connection from ::1:61137 on port 1884.
+1782974580: New client connected from ::1:61137 as auto-72A8685E-F24A-70AA-AF83-40CC3CB65259 (p4, c1, k60, u'humidity_sensor').
+1782974580: Client auto-72A8685E-F24A-70AA-AF83-40CC3CB65259 [::1:61137] disconnected: connection closed by client.
+1782974580: Client auto-3E535E3E-606E-A9A8-2C1A-B94A063181F4 [::1:61134] disconnected.
+1782974979: New connection from ::1:60044 on port 1884.
+1782974979: New client connected from ::1:60044 as auto-E792CF64-8EA6-142C-E70E-043F0B8B37D5 (p5, c1, k60, u'admin').
+1782974979: dynsec: auto-E792CF64-8EA6-142C-E70E-043F0B8B37D5/admin | createClient | username=new_dashboard | password=*****
+1782974979: Client auto-E792CF64-8EA6-142C-E70E-043F0B8B37D5 [::1:60044] disconnected: connection closed by client.
+1782974979: New connection from ::1:60047 on port 1884.
+1782974979: New client connected from ::1:60047 as auto-E6B50D35-F775-EF53-9F82-D689DA263D75 (p5, c1, k60, u'admin').
+1782974979: dynsec: auto-E6B50D35-F775-EF53-9F82-D689DA263D75/admin | setClientPassword | username=new_dashboard | password=******
+1782974979: Client auto-E6B50D35-F775-EF53-9F82-D689DA263D75 [::1:60047] disconnected: connection closed by client.
+1782974979: New connection from ::1:60050 on port 1884.
+1782974979: New client connected from ::1:60050 as auto-E2EAA220-E274-E2B8-8CF7-9C34E1049E94 (p5, c1, k60, u'admin').
+1782974979: dynsec: auto-E2EAA220-E274-E2B8-8CF7-9C34E1049E94/admin | createRole | rolename=new_dashboard_subscriber
+1782974979: Client auto-E2EAA220-E274-E2B8-8CF7-9C34E1049E94 [::1:60050] disconnected: connection closed by client.
+1782974979: New connection from ::1:60053 on port 1884.
+1782974979: New client connected from ::1:60053 as auto-15356D6B-41FF-7DB2-2A46-95086D804CE0 (p5, c1, k60, u'admin').
+1782974979: dynsec: auto-15356D6B-41FF-7DB2-2A46-95086D804CE0/admin | addRoleACL | rolename=new_dashboard_subscriber | acltype=subscribePattern | topic=sensors/# | priority=0 | allow=true
+1782974979: Client auto-15356D6B-41FF-7DB2-2A46-95086D804CE0 [::1:60053] disconnected: connection closed by client.
+1782974979: New connection from ::1:60056 on port 1884.
+1782974979: New client connected from ::1:60056 as auto-66C440A5-8C69-7731-9050-F90C919407D0 (p5, c1, k60, u'admin').
+1782974979: dynsec: auto-66C440A5-8C69-7731-9050-F90C919407D0/admin | addRoleACL | rolename=new_dashboard_subscriber | acltype=publishClientReceive | topic=sensors/# | priority=0 | allow=true
+1782974979: Client auto-66C440A5-8C69-7731-9050-F90C919407D0 [::1:60056] disconnected: connection closed by client.
+1782974979: New connection from ::1:60059 on port 1884.
+1782974979: New client connected from ::1:60059 as auto-8F4B70D3-FC88-D501-FC98-B0C6A925509D (p5, c1, k60, u'admin').
+1782974979: dynsec: auto-8F4B70D3-FC88-D501-FC98-B0C6A925509D/admin | addClientRole | username=new_dashboard | rolename=new_dashboard_subscriber | priority=-1
+1782974979: Client auto-8F4B70D3-FC88-D501-FC98-B0C6A925509D [::1:60059] disconnected: connection closed by client.
+1782974980: New connection from ::1:60062 on port 1884.
+1782974980: New client connected from ::1:60062 as auto-5200EE29-4964-55BB-FF53-1A6FD6ED7699 (p5, c1, k60, u'admin').
+1782974980: dynsec: auto-5200EE29-4964-55BB-FF53-1A6FD6ED7699/admin | createClient | username=new_sensor | password=*****
+1782974980: Client auto-5200EE29-4964-55BB-FF53-1A6FD6ED7699 [::1:60062] disconnected: connection closed by client.
+1782974980: New connection from ::1:60065 on port 1884.
+1782974980: New client connected from ::1:60065 as auto-39E048BF-328B-29B3-9293-0DEFAF9712A1 (p5, c1, k60, u'admin').
+1782974980: dynsec: auto-39E048BF-328B-29B3-9293-0DEFAF9712A1/admin | setClientPassword | username=new_sensor | password=******
+1782974980: Client auto-39E048BF-328B-29B3-9293-0DEFAF9712A1 [::1:60065] disconnected: connection closed by client.
+1782974980: New connection from ::1:60068 on port 1884.
+1782974980: New client connected from ::1:60068 as auto-82EAC650-558C-7C79-AB81-CC5F1846F1ED (p5, c1, k60, u'admin').
+1782974980: dynsec: auto-82EAC650-558C-7C79-AB81-CC5F1846F1ED/admin | createRole | rolename=new_sensor_publisher
+1782974980: Client auto-82EAC650-558C-7C79-AB81-CC5F1846F1ED [::1:60068] disconnected: connection closed by client.
+1782974980: New connection from ::1:60071 on port 1884.
+1782974980: New client connected from ::1:60071 as auto-DF015AA5-6229-F69E-B3F0-EE16B1F6CFC3 (p5, c1, k60, u'admin').
+1782974980: dynsec: auto-DF015AA5-6229-F69E-B3F0-EE16B1F6CFC3/admin | addRoleACL | rolename=new_sensor_publisher | acltype=publishClientSend | topic=sensors/new | priority=0 | allow=true
+1782974980: Client auto-DF015AA5-6229-F69E-B3F0-EE16B1F6CFC3 [::1:60071] disconnected: connection closed by client.
+1782974980: New connection from ::1:60074 on port 1884.
+1782974980: New client connected from ::1:60074 as auto-34B6A2EF-8DE3-A8E6-A4D8-7940AF3018C4 (p5, c1, k60, u'admin').
+1782974980: dynsec: auto-34B6A2EF-8DE3-A8E6-A4D8-7940AF3018C4/admin | addClientRole | username=new_sensor | rolename=new_sensor_publisher | priority=-1
+1782974980: Client auto-34B6A2EF-8DE3-A8E6-A4D8-7940AF3018C4 [::1:60074] disconnected: connection closed by client.
+1782975083: Saving in-memory database to C:\iot\secure-mqtt-broker\data\\mosquitto.db.
+1782977123: mosquitto version 2.1.2 starting
+1782977123: Config loaded from C:\custom_secure_mqtt_broker\secure-mqtt-broker\mosquitto-secure.conf.
+1782977123: Bridge support available.
+1782977123: Persistence support available.
+1782977123: TLS support available.
+1782977123: TLS-PSK support available.
+1782977123: Websockets support available.
+1782977123: Loading plugin: C:\Program Files\mosquitto\mosquitto_dynamic_security.dll
+1782977123: Plugin dynamic-security has registered to receive 'control' events on topic $CONTROL/dynamic-security/v1.
+1782977123: Plugin dynamic-security has registered to receive 'basic-auth' events.
+1782977123: Plugin dynamic-security has registered to receive 'acl-check' events.
+1782977123: Plugin dynamic-security has registered to receive 'tick' events.
+1782977123: Plugin dynamic-security loaded.
+1782977123: Opening ipv6 listen socket on port 1884.
+1782977123: Opening ipv4 listen socket on port 1884.
+1782977123: mosquitto version 2.1.2 running
+1782977134: New connection from ::1:54977 on port 1884.
+1782977134: New client connected from ::1:54977 as auto-8DEBF4F3-0045-4D19-99FD-8BAA3C150555 (p5, c1, k60, u'admin').
+1782977135: dynsec: auto-8DEBF4F3-0045-4D19-99FD-8BAA3C150555/admin | listClients | verbose=false | count=-1 | offset=0
+1782977135: Client auto-8DEBF4F3-0045-4D19-99FD-8BAA3C150555 [::1:54977] disconnected: connection closed by client.
+1782977135: New connection from ::1:54981 on port 1884.
+1782977135: New client connected from ::1:54981 as auto-43C57B10-6038-AE00-1DA2-AAE2573B7131 (p5, c1, k60, u'admin').
+1782977135: Client auto-43C57B10-6038-AE00-1DA2-AAE2573B7131 [::1:54981] disconnected: connection closed by client.
+1782977135: New connection from ::1:54984 on port 1884.
+1782977135: New client connected from ::1:54984 as auto-71D5E8F0-772C-DEA0-CAE0-1C554CDC55D0 (p5, c1, k60, u'admin').
+1782977135: dynsec: auto-71D5E8F0-772C-DEA0-CAE0-1C554CDC55D0/admin | setClientPassword | username=new_sensor | password=******
+1782977135: Client auto-71D5E8F0-772C-DEA0-CAE0-1C554CDC55D0 [::1:54984] disconnected: connection closed by client.
+1782977135: New connection from ::1:54987 on port 1884.
+1782977135: New client connected from ::1:54987 as auto-D5A587D9-6CE2-8601-8E71-B7B6E108CFDE (p5, c1, k60, u'admin').
+1782977135: Client auto-D5A587D9-6CE2-8601-8E71-B7B6E108CFDE [::1:54987] disconnected: connection closed by client.
+1782977135: New connection from ::1:54990 on port 1884.
+1782977135: New client connected from ::1:54990 as auto-F57D1657-E41A-BFBA-793D-4DFF03B98ED0 (p5, c1, k60, u'admin').
+1782977135: Client auto-F57D1657-E41A-BFBA-793D-4DFF03B98ED0 [::1:54990] disconnected: connection closed by client.
+1782977135: New connection from ::1:54993 on port 1884.
+1782977135: New client connected from ::1:54993 as auto-2D63D1DE-A3D6-AEF0-FEA3-96721459CE2B (p5, c1, k60, u'admin').
+1782977135: Client auto-2D63D1DE-A3D6-AEF0-FEA3-96721459CE2B [::1:54993] disconnected: connection closed by client.
+1782977621: mosquitto version 2.1.2 starting
+1782977621: Config loaded from C:\custom_secure_mqtt_broker\secure-mqtt-broker\mosquitto-secure.conf.
+1782977621: Bridge support available.
+1782977621: Persistence support available.
+1782977621: TLS support available.
+1782977621: TLS-PSK support available.
+1782977621: Websockets support available.
+1782977621: Loading plugin: C:\Program Files\mosquitto\mosquitto_dynamic_security.dll
+1782977621: Plugin dynamic-security has registered to receive 'control' events on topic $CONTROL/dynamic-security/v1.
+1782977621: Plugin dynamic-security has registered to receive 'basic-auth' events.
+1782977621: Plugin dynamic-security has registered to receive 'acl-check' events.
+1782977621: Plugin dynamic-security has registered to receive 'tick' events.
+1782977621: Plugin dynamic-security loaded.
+1782977621: Opening ipv6 listen socket on port 1884.
+1782977621: Opening ipv4 listen socket on port 1884.
+1782977621: mosquitto version 2.1.2 running
+1782978401: New connection from ::1:61381 on port 1884.
+1782978401: New client connected from ::1:61381 as auto-60064675-26F9-6179-2AF6-F8336155F811 (p4, c1, k60, u'dashboard').
+1782978430: New connection from ::1:63173 on port 1884.
+1782978430: New client connected from ::1:63173 as auto-0ABE6CE8-3269-4C67-FFC7-1A521F6AE73D (p4, c1, k60, u'temperature_sensor').
+1782978430: Client auto-0ABE6CE8-3269-4C67-FFC7-1A521F6AE73D [::1:63173] disconnected.

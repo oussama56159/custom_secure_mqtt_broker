@@ -1,0 +1,175 @@
+{
+	"changeIndex":	41,
+	"defaultACLAccess":	{
+		"publishClientSend":	false,
+		"publishClientReceive":	false,
+		"subscribe":	false,
+		"unsubscribe":	true
+	},
+	"clients":	[{
+			"username":	"admin",
+			"textname":	"Dynsec admin user",
+			"roles":	[{
+					"rolename":	"admin"
+				}],
+			"encoded_password":	"$7$1000$doU32/o6ot70NqrKNGAJG1+rhLYlO10RJSSvp0608YI9e6RGmr91eBm5jQHgOnO90KqtbVpT1l2u6l9lJz03ZA==$RRsoJ+GFm1hO8QDNzEmssZPn/2vYmj56Yv20yczMXh/dm80zjxY4RRW2j50JSAg36Kg+Vxsqq9NwCZAB+SKp1A=="
+		}, {
+			"username":	"attacker",
+			"roles":	[],
+			"encoded_password":	"$7$1000$ZC7To4QfaZw+uMhipJbEitgK1NE+dm/SBunAWjWjcplXjVTR8pYsd/6/9KQt1FSLdafbZKDla/iTaemrdCDUuQ==$YUVNPwMQqOzIFProfWhVpJ7+Y5U7z1b6Bo82n9fkZOhWue/mcHIm1Qu3tjD+mAD+1iFt5xrWg7ogBeDrm4kzEA=="
+		}, {
+			"username":	"dashboard",
+			"roles":	[],
+			"encoded_password":	"$7$1000$j3s47fUslZMlQvfQox/gKjBKqfO/Ru1jmFPV205JSn1qLXwp+GZG7m1uoQJ2ZwPxoTSWDLEOOnPG3vdDXUjaGA==$cjfF1BnGxlHFjNGqHH1r+sleVERIl043/kF6X7FHO2EqX/fhxME1HPWbRaJkM4AflcVGwHcaKPKWjlo37b3d1Q=="
+		}, {
+			"username":	"humidity_sensor",
+			"roles":	[{
+					"rolename":	"humidity_sensor_publisher"
+				}],
+			"encoded_password":	"$7$1000$b2awTY8yboKhwb/eAfLvukKKCPShqw+o1JZcHh0Pj/1WmKfLZ2E07LIv4uX9TeDv7XnBd/y5rrsOnXfDwomXlQ==$9pGGzxNdFv9CGWvevm1EaAzDozEcf6eM7SMP5dzy6Hp/96vMtbX3szZkzaYaMLf3y7HihGlhZkY29YCL4Rco9A=="
+		}, {
+			"username":	"new_dashboard",
+			"roles":	[{
+					"rolename":	"new_dashboard_subscriber"
+				}],
+			"encoded_password":	"$7$1000$wm2sp1rIG886ibjYME1Zq7WyHpqcabQjLBDjECo763T6Yh8BB7cqCYvCJO/M/0rXRB/wXdyzlHtbY0gvxSOpVQ==$QiP8e6fkIFNVS/OaJcOe07MGBtwMjcuoTBl9SuZKIGc08mx3vROQ9TjHbLOKBH6K7r6aMRz8bXMsEgaxWC20qg=="
+		}, {
+			"username":	"new_sensor",
+			"roles":	[{
+					"rolename":	"new_sensor_publisher"
+				}],
+			"encoded_password":	"$7$1000$lxG+Pd8DRTiaezWUIFKx6MhOkDViQR0AW3lUl0gFhMEEvjMoDhtfleiGDkfHUPZPeB4KYo/MHOBGpw79ijolhw==$3wvnS5yPVVEg4dSdcNX1sqW0ALykRlshRWcOp0jTILbBkYjsWdiq/Ace7lnFAqH2Vovz+Fv7zLK+hCKFMUaQ8Q=="
+		}, {
+			"username":	"temperature_sensor",
+			"roles":	[],
+			"encoded_password":	"$7$1000$AgRkm7Y57dYbbvq+BK0UIhlG0fbAvnLFibQWUNLIYAGVuEnBRwN5BDUA8331dlPHqApDssTHrzhqUxzumF7efA==$MYhbPpVDlDbv2m4BkFrHX30AFk0aBLdjZ0ew+mdv+UtufsDKusw+A1Ha0LMz4aVHS98EHoOtWk3ew5TYr1z/Iw=="
+		}],
+	"groups":	[{
+			"groupname":	"blocked_clients",
+			"roles":	[],
+			"clients":	[{
+					"username":	"attacker"
+				}]
+		}, {
+			"groupname":	"dashboards",
+			"roles":	[{
+					"rolename":	"dashboard_reader"
+				}],
+			"clients":	[{
+					"username":	"dashboard"
+				}]
+		}, {
+			"groupname":	"sensor_devices",
+			"roles":	[{
+					"rolename":	"temperature_publisher"
+				}],
+			"clients":	[{
+					"username":	"temperature_sensor"
+				}]
+		}],
+	"roles":	[{
+			"rolename":	"admin",
+			"allowwildcardsubs":	true,
+			"acls":	[{
+					"acltype":	"publishClientSend",
+					"topic":	"$CONTROL/dynamic-security/#",
+					"priority":	0,
+					"allow":	true
+				}, {
+					"acltype":	"publishClientReceive",
+					"topic":	"$CONTROL/dynamic-security/#",
+					"priority":	0,
+					"allow":	true
+				}, {
+					"acltype":	"publishClientReceive",
+					"topic":	"$SYS/#",
+					"priority":	0,
+					"allow":	true
+				}, {
+					"acltype":	"publishClientReceive",
+					"topic":	"#",
+					"priority":	0,
+					"allow":	true
+				}, {
+					"acltype":	"subscribePattern",
+					"topic":	"$CONTROL/dynamic-security/#",
+					"priority":	0,
+					"allow":	true
+				}, {
+					"acltype":	"subscribePattern",
+					"topic":	"$SYS/#",
+					"priority":	0,
+					"allow":	true
+				}, {
+					"acltype":	"subscribePattern",
+					"topic":	"#",
+					"priority":	0,
+					"allow":	true
+				}, {
+					"acltype":	"unsubscribePattern",
+					"topic":	"#",
+					"priority":	0,
+					"allow":	true
+				}]
+		}, {
+			"rolename":	"dashboard_reader",
+			"allowwildcardsubs":	true,
+			"acls":	[{
+					"acltype":	"publishClientReceive",
+					"topic":	"sensors/#",
+					"priority":	0,
+					"allow":	true
+				}, {
+					"acltype":	"subscribePattern",
+					"topic":	"sensors/#",
+					"priority":	0,
+					"allow":	true
+				}]
+		}, {
+			"rolename":	"humidity_sensor_publisher",
+			"allowwildcardsubs":	true,
+			"acls":	[{
+					"acltype":	"publishClientSend",
+					"topic":	"sensors/humidity",
+					"priority":	0,
+					"allow":	true
+				}]
+		}, {
+			"rolename":	"new_dashboard_subscriber",
+			"allowwildcardsubs":	true,
+			"acls":	[{
+					"acltype":	"publishClientReceive",
+					"topic":	"sensors/#",
+					"priority":	0,
+					"allow":	true
+				}, {
+					"acltype":	"subscribePattern",
+					"topic":	"sensors/#",
+					"priority":	0,
+					"allow":	true
+				}]
+		}, {
+			"rolename":	"new_sensor_publisher",
+			"allowwildcardsubs":	true,
+			"acls":	[{
+					"acltype":	"publishClientSend",
+					"topic":	"sensors/new",
+					"priority":	0,
+					"allow":	true
+				}, {
+					"acltype":	"publishClientSend",
+					"topic":	"sensors/new_sensor",
+					"priority":	0,
+					"allow":	true
+				}]
+		}, {
+			"rolename":	"temperature_publisher",
+			"allowwildcardsubs":	true,
+			"acls":	[{
+					"acltype":	"publishClientSend",
+					"topic":	"sensors/temperature",
+					"priority":	0,
+					"allow":	true
+				}]
+		}]
+}
