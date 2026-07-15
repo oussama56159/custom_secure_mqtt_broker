@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Broker Status{% endblock %}
+{% block content %}
+<div class="mb-3">
+    <h1 class="h3 mb-0">Broker Status</h1>
+    <div class="text-secondary">Quick health check through the same secure admin path.</div>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                {% if status.ok %}
+                    <div class="status-dot bg-success"></div>
+                    <h2 class="h5 mt-3">Connected</h2>
+                    <p class="mb-1">Users: {{ status.clients }}</p>
+                    <p class="mb-0">Roles: {{ status.roles }}</p>
+                {% else %}
+                    <div class="status-dot bg-danger"></div>
+                    <h2 class="h5 mt-3">Connection failed</h2>
+                    <p class="text-danger">{{ status.error }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">Broker Log Tail</div>
+            <div class="card-body">
+                <pre class="details-box log-box">{{ log_tail or "No log lines found." }}</pre>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

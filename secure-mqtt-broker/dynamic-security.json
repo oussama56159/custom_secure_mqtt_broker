@@ -1,5 +1,5 @@
 {
-	"changeIndex":	41,
+	"changeIndex":	121,
 	"defaultACLAccess":	{
 		"publishClientSend":	false,
 		"publishClientReceive":	false,
@@ -15,6 +15,7 @@
 			"encoded_password":	"$7$1000$doU32/o6ot70NqrKNGAJG1+rhLYlO10RJSSvp0608YI9e6RGmr91eBm5jQHgOnO90KqtbVpT1l2u6l9lJz03ZA==$RRsoJ+GFm1hO8QDNzEmssZPn/2vYmj56Yv20yczMXh/dm80zjxY4RRW2j50JSAg36Kg+Vxsqq9NwCZAB+SKp1A=="
 		}, {
 			"username":	"attacker",
+			"disabled":	true,
 			"roles":	[],
 			"encoded_password":	"$7$1000$ZC7To4QfaZw+uMhipJbEitgK1NE+dm/SBunAWjWjcplXjVTR8pYsd/6/9KQt1FSLdafbZKDla/iTaemrdCDUuQ==$YUVNPwMQqOzIFProfWhVpJ7+Y5U7z1b6Bo82n9fkZOhWue/mcHIm1Qu3tjD+mAD+1iFt5xrWg7ogBeDrm4kzEA=="
 		}, {
@@ -22,23 +23,15 @@
 			"roles":	[],
 			"encoded_password":	"$7$1000$j3s47fUslZMlQvfQox/gKjBKqfO/Ru1jmFPV205JSn1qLXwp+GZG7m1uoQJ2ZwPxoTSWDLEOOnPG3vdDXUjaGA==$cjfF1BnGxlHFjNGqHH1r+sleVERIl043/kF6X7FHO2EqX/fhxME1HPWbRaJkM4AflcVGwHcaKPKWjlo37b3d1Q=="
 		}, {
-			"username":	"humidity_sensor",
-			"roles":	[{
-					"rolename":	"humidity_sensor_publisher"
-				}],
-			"encoded_password":	"$7$1000$b2awTY8yboKhwb/eAfLvukKKCPShqw+o1JZcHh0Pj/1WmKfLZ2E07LIv4uX9TeDv7XnBd/y5rrsOnXfDwomXlQ==$9pGGzxNdFv9CGWvevm1EaAzDozEcf6eM7SMP5dzy6Hp/96vMtbX3szZkzaYaMLf3y7HihGlhZkY29YCL4Rco9A=="
+			"username":	"esp32",
+			"roles":	[],
+			"encoded_password":	"$7$1000$NirCaYoZr1Ofxgz0bwIpe2zUUB5k0G57wLvykgkAuSW3oFzac7uTLLBTBslLXYI0Fz9q7KhMkqQxzVMEEEGR7w==$qHw33V1ocUuDZ5G/uZC77G506UVVvnAwdjqrmWXQmhg3nzgh5h1gRAXPmSvYd2QSXsAqpYzNGjLYqcxFOXxCKQ=="
 		}, {
-			"username":	"new_dashboard",
+			"username":	"new_device1",
 			"roles":	[{
-					"rolename":	"new_dashboard_subscriber"
+					"rolename":	"dashboard_reader"
 				}],
-			"encoded_password":	"$7$1000$wm2sp1rIG886ibjYME1Zq7WyHpqcabQjLBDjECo763T6Yh8BB7cqCYvCJO/M/0rXRB/wXdyzlHtbY0gvxSOpVQ==$QiP8e6fkIFNVS/OaJcOe07MGBtwMjcuoTBl9SuZKIGc08mx3vROQ9TjHbLOKBH6K7r6aMRz8bXMsEgaxWC20qg=="
-		}, {
-			"username":	"new_sensor",
-			"roles":	[{
-					"rolename":	"new_sensor_publisher"
-				}],
-			"encoded_password":	"$7$1000$lxG+Pd8DRTiaezWUIFKx6MhOkDViQR0AW3lUl0gFhMEEvjMoDhtfleiGDkfHUPZPeB4KYo/MHOBGpw79ijolhw==$3wvnS5yPVVEg4dSdcNX1sqW0ALykRlshRWcOp0jTILbBkYjsWdiq/Ace7lnFAqH2Vovz+Fv7zLK+hCKFMUaQ8Q=="
+			"encoded_password":	"$7$1000$u8ZPl9ncy8ObtZY6kFr28pLVFBDGiUYBKmOVM6INQMQ/cP3QosFGJAJMbpbeMQR+iTxfX56k53thUtMblr37DQ==$kCPr13RQowXx9VOAVwGPMQ6AUjThnmSr9x+BpHyg2Rai4bt3IOtox2yKTJJyO7qTz5IDgm4s77r8A08r16TU1g=="
 		}, {
 			"username":	"temperature_sensor",
 			"roles":	[],
@@ -57,6 +50,8 @@
 				}],
 			"clients":	[{
 					"username":	"dashboard"
+				}, {
+					"username":	"new_device1"
 				}]
 		}, {
 			"groupname":	"sensor_devices",
@@ -162,6 +157,10 @@
 					"priority":	0,
 					"allow":	true
 				}]
+		}, {
+			"rolename":	"publisher",
+			"allowwildcardsubs":	true,
+			"acls":	[]
 		}, {
 			"rolename":	"temperature_publisher",
 			"allowwildcardsubs":	true,

@@ -1,0 +1,511 @@
+body {
+    background: #eef2f7;
+    color: #172033;
+}
+
+.login-shell {
+    max-width: 420px;
+    margin: 8vh auto;
+}
+
+.card {
+    border: 1px solid #d9e1ec;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+}
+
+.card-header {
+    background: #ffffff;
+    font-weight: 600;
+}
+
+.app-shell {
+    display: grid;
+    grid-template-columns: 260px minmax(0, 1fr);
+    min-height: 100vh;
+}
+
+.sidebar {
+    background: #111827;
+    color: #f8fafc;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.25rem;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+}
+
+.brand {
+    align-items: center;
+    color: #ffffff;
+    display: flex;
+    font-weight: 700;
+    gap: 0.75rem;
+    text-decoration: none;
+}
+
+.brand:hover {
+    color: #ffffff;
+}
+
+.brand-mark {
+    align-items: center;
+    background: #2563eb;
+    border-radius: 8px;
+    display: inline-flex;
+    height: 36px;
+    justify-content: center;
+    width: 36px;
+}
+
+.side-nav {
+    display: grid;
+    gap: 0.35rem;
+    margin-top: 1rem;
+}
+
+.side-nav a {
+    border-radius: 8px;
+    color: #cbd5e1;
+    padding: 0.7rem 0.8rem;
+    text-decoration: none;
+}
+
+.side-nav a:hover {
+    background: #1f2937;
+    color: #ffffff;
+}
+
+.content-shell {
+    min-width: 0;
+}
+
+.topbar {
+    align-items: center;
+    background: rgba(255, 255, 255, 0.86);
+    border-bottom: 1px solid #d9e1ec;
+    display: flex;
+    justify-content: space-between;
+    min-height: 64px;
+    padding: 0 1.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    backdrop-filter: blur(12px);
+}
+
+.page-content {
+    padding: 1.5rem;
+}
+
+.is-loading .htmx-indicator {
+    opacity: 1;
+}
+
+.htmx-indicator {
+    opacity: 0;
+    transition: opacity 120ms ease;
+}
+
+.details-box {
+    background: #101828;
+    color: #d1e7ff;
+    border-radius: 6px;
+    padding: 1rem;
+    min-height: 160px;
+    white-space: pre-wrap;
+}
+
+.log-box {
+    max-height: 520px;
+    overflow: auto;
+}
+
+.empty-state {
+    border: 1px dashed #b8c3d4;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #65758b;
+    padding: 3rem;
+    text-align: center;
+}
+
+.status-dot {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+}
+
+.user-summary-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.user-stat {
+    background: #ffffff;
+    border: 1px solid #d9e1ec;
+    border-left: 4px solid #2563eb;
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.user-stat.good {
+    border-left-color: #16a34a;
+}
+
+.user-stat.muted {
+    border-left-color: #64748b;
+}
+
+.user-stat span {
+    color: #64748b;
+    display: block;
+    font-size: 0.85rem;
+}
+
+.user-stat strong {
+    display: block;
+    font-size: 1.45rem;
+    line-height: 1.2;
+    margin-top: 0.25rem;
+}
+
+.user-overview-card thead th {
+    background: #f8fafc;
+    color: #475569;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+}
+
+.user-filter-bar {
+    background: #ffffff;
+}
+
+.status-pill {
+    border-radius: 999px;
+    display: inline-flex;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 0.25rem 0.55rem;
+}
+
+.status-pill.is-enabled {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.status-pill.is-disabled {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.selected-user-summary {
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.selected-user-summary > div {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 0.85rem;
+}
+
+.selected-user-summary span {
+    color: #64748b;
+    display: block;
+    font-size: 0.8rem;
+}
+
+.selected-user-summary strong {
+    display: block;
+    font-size: 1rem;
+    margin-top: 0.2rem;
+}
+
+.raw-details summary {
+    color: #2563eb;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.telemetry-dot {
+    border-radius: 999px;
+    display: inline-block;
+    height: 0.75rem;
+    margin-right: 0.5rem;
+    width: 0.75rem;
+}
+
+.telemetry-dot.is-online {
+    background: #16a34a;
+    box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.12);
+}
+
+.telemetry-dot.is-offline {
+    background: #dc2626;
+    box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.12);
+}
+
+.telemetry-device {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.telemetry-device span {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.telemetry-summary {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin-bottom: 1rem;
+}
+
+.telemetry-stat {
+    background: #ffffff;
+    border: 1px solid #d9e1ec;
+    border-left: 4px solid #64748b;
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.telemetry-stat.good {
+    border-left-color: #16a34a;
+}
+
+.telemetry-stat.bad {
+    border-left-color: #dc2626;
+}
+
+.telemetry-stat span {
+    color: #64748b;
+    display: block;
+    font-size: 0.85rem;
+}
+
+.telemetry-stat strong {
+    color: #172033;
+    display: block;
+    font-size: 1.45rem;
+    line-height: 1.2;
+    margin-top: 0.25rem;
+}
+
+.telemetry-layout {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 360px minmax(0, 1fr);
+}
+
+.telemetry-panel {
+    align-self: start;
+    position: sticky;
+    top: 88px;
+}
+
+.telemetry-panel .card-header {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.telemetry-main {
+    display: grid;
+    gap: 1rem;
+    min-width: 0;
+}
+
+.telemetry-device-detail h2 {
+    font-size: 1.35rem;
+    margin: 0.15rem 0 0;
+}
+
+.telemetry-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.9rem;
+}
+
+.telemetry-meta span {
+    background: #f1f5f9;
+    border-radius: 999px;
+    color: #475569;
+    font-size: 0.85rem;
+    padding: 0.35rem 0.65rem;
+}
+
+.telemetry-topic-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.telemetry-topic-strip span {
+    background: #e0f2fe;
+    border: 1px solid #bae6fd;
+    border-radius: 999px;
+    color: #075985;
+    font-family: Consolas, monospace;
+    font-size: 0.82rem;
+    padding: 0.4rem 0.7rem;
+}
+
+.telemetry-topic {
+    background: #f1f5f9;
+    border: 1px solid #d9e1ec;
+    border-radius: 6px;
+    font-family: Consolas, monospace;
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+    padding: 0.45rem 0.6rem;
+}
+
+.telemetry-widget-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.telemetry-widget {
+    min-height: 310px;
+}
+
+.telemetry-widget-head {
+    align-items: center;
+    display: flex;
+    gap: 0.75rem;
+    justify-content: space-between;
+}
+
+.telemetry-widget-head span,
+.telemetry-widget-head small {
+    display: block;
+}
+
+.telemetry-widget-head small {
+    color: #64748b;
+    font-weight: 400;
+}
+
+.telemetry-widget-select {
+    max-width: 110px;
+}
+
+.telemetry-chart {
+    height: 220px;
+}
+
+.telemetry-gauge {
+    display: grid;
+    min-height: 220px;
+    place-items: center;
+}
+
+.telemetry-gauge-ring {
+    align-items: center;
+    background: conic-gradient(#2563eb var(--value), #e5e7eb 0deg);
+    border-radius: 999px;
+    display: flex;
+    height: 170px;
+    justify-content: center;
+    width: 170px;
+}
+
+.telemetry-gauge-ring > div {
+    align-items: center;
+    background: #ffffff;
+    border-radius: 999px;
+    display: flex;
+    flex-direction: column;
+    height: 124px;
+    justify-content: center;
+    width: 124px;
+}
+
+.telemetry-gauge-ring strong,
+.telemetry-value-card strong {
+    color: #172033;
+    font-size: 1.75rem;
+}
+
+.telemetry-gauge-ring span,
+.telemetry-value-card span {
+    color: #64748b;
+    font-size: 0.85rem;
+}
+
+.telemetry-value-card {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    min-height: 220px;
+    justify-content: center;
+}
+
+.telemetry-payload-row {
+    align-items: center;
+    border-bottom: 1px solid #eef2f7;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.55rem 0;
+}
+
+.telemetry-payload-row:last-child {
+    border-bottom: 0;
+}
+
+.telemetry-payload-row span {
+    color: #64748b;
+}
+
+.telemetry-payload-row strong,
+.telemetry-payload-cell {
+    overflow-wrap: anywhere;
+}
+
+.telemetry-log {
+    max-height: 440px;
+    overflow: hidden;
+}
+
+.telemetry-log .table-responsive {
+    max-height: 390px;
+    overflow: auto;
+}
+
+@media (max-width: 900px) {
+    .app-shell {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        height: auto;
+        position: static;
+    }
+
+    .side-nav {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .telemetry-summary,
+    .telemetry-layout,
+    .user-summary-grid,
+    .selected-user-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .telemetry-panel {
+        position: static;
+    }
+}

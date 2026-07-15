@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block title %}Roles & ACLs{% endblock %}
+{% block content %}
+<div class="mb-3">
+    <h1 class="h3 mb-0">Roles & ACLs</h1>
+    <div class="text-secondary">Create roles and manage Dynamic Security ACL rules.</div>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">Create Role</div>
+            <div class="card-body">
+                <form method="post" action="{{ url_for('roles_create') }}">
+                    <input class="form-control mb-3" name="role" required>
+                    <button class="btn btn-primary w-100">Create Role</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="list-group mt-4">
+            {% for role in roles %}
+                <a class="list-group-item list-group-item-action {% if role == selected %}active{% endif %}" href="{{ url_for('roles', selected=role) }}">
+                    {{ role }}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="col-lg-8">
+        {% if selected %}
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span>Role: {{ selected }}</span>
+                <form method="post" action="{{ url_for('roles_delete', role=selected) }}" onsubmit="return confirm('Delete {{ selected }}?')">
+                    <button class="btn btn-sm btn-danger">Delete Role</button>
+                </form>
+            </div>
+            <div class="card-body">
+                <pre class="details-box">{{ details }}</pre>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">ACLs</div>
+            <div class="card-body">
+                <div class="small fw-semibold text-secondary mb-2">Add an ACL</div>
+                <form class="row g-3" method="post" action="{{ url_for('roles_acl_add', role=selected) }}">
+                    <div class="col-md-4">
+                        <label class="form-label">ACL Type</label>
+                        <select class="form-select" name="acl_type">
+                            {% for acl in acl_types %}<option value="{{ acl }}">{{ acl }}</option>{% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Topic</label>
+                        <input class="form-control" name="topic" placeholder="sensors/#" required>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Access</label>
+                        <select class="form-select" name="allow">
+                            <option value="allow">allow</option>
+                            <option value="deny">deny</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Priority</label>
+                        <input class="form-control" name="priority">
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-primary">Add ACL</button>
+                    </div>
+                </form>
+                <hr>
+                <div class="small fw-semibold text-secondary mb-2">Remove an ACL</div>
+                {% if existing_acls %}
+                    <div class="list-group">
+                        {% for acl in existing_acls %}
+                        <form class="list-group-item d-flex justify-content-between align-items-center gap-3" method="post" action="{{ url_for('roles_acl_remove', role=selected) }}">
+                            <input type="hidden" name="acl_type" value="{{ acl.acl_type }}">
+                            <input type="hidden" name="topic" value="{{ acl.topic }}">
+                            <input type="hidden" name="allow" value="{{ acl.access }}">
+                            <span><strong>{{ acl.acl_type }}</strong> : {{ acl.access }} : {{ acl.topic }}</span>
+                            <button class="btn btn-sm btn-outline-danger">Remove</button>
+                        </form>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="text-secondary small">This role has no ACLs.</div>
+                {% endif %}
+            </div>
+        </div>
+        {% else %}
+        <div class="empty-state">Select a role to view details and manage ACLs.</div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

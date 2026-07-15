@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Telemetry{% endblock %}
+{% block content %}
+<div class="d-flex align-items-center justify-content-between mb-3">
+    <div>
+        <h1 class="h3 mb-0">Telemetry</h1>
+        <div class="text-secondary">Live device status, topics, payloads, charts, and gauges.</div>
+    </div>
+    <span class="badge text-bg-light border">Subscribed to sensors/#</span>
+</div>
+
+<div id="telemetry-root"></div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<script src="{{ url_for('static', filename='telemetry.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,543 @@
+{% extends "base.html" %}
+{% block title %}Users{% endblock %}
+{% block content %}
+<div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-3">
+    <div>
+        <h1 class="h3 mb-0">Devices & Users</h1>
+        <div class="text-secondary">Manage broker identities, group membership, roles, and allowed MQTT topics.</div>
+    </div>
+    <div>
+        <button id="addUserBtn" class="btn btn-primary" aria-controls="addUserModal" aria-haspopup="dialog">Add User</button>
+    </div>
+</div>
+
+<div class="user-summary-grid mb-4">
+    <div class="user-stat">
+        <span>Total Users</span>
+        <strong>{{ total }}</strong>
+    </div>
+    <div class="user-stat good">
+        <span>Shown On Page</span>
+        <strong>{{ user_summaries|length }}</strong>
+    </div>
+    <div class="user-stat muted">
+        <span>Groups</span>
+        <strong>{{ groups|length }}</strong>
+    </div>
+    <div class="user-stat muted">
+        <span>Roles</span>
+        <strong>{{ roles|length }}</strong>
+    </div>
+</div>
+
+<noscript>
+    <div class="mb-3">
+        <div class="card">
+            <div class="card-body">
+                <form method="post" action="{{ url_for('clients_create') }}">
+                    <div class="row g-2">
+                        <div class="col"><input name="username" class="form-control" placeholder="Username" required></div>
+                        <div class="col"><input name="password" class="form-control" placeholder="Password" required></div>
+                        <div class="col-auto"><button class="btn btn-primary">Create</button></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</noscript>
+
+<div class="row g-4">
+    <div class="col-12">
+        <div class="card user-overview-card">
+            <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <span>User Overview</span>
+                <span id="visibleUserCount" class="small text-secondary">{{ user_summaries|length }} visible</span>
+            </div>
+            <div class="card-body">
+                <div class="row g-3 mb-3 user-filter-bar">
+                    <div class="col-md-4">
+                        <input id="userSearch" class="form-control" placeholder="Search users, groups, roles, topics">
+                    </div>
+                    <div class="col-md-3">
+                        <select id="groupFilter" class="form-select">
+                            <option value="">All groups</option>
+                            {% for group in groups %}<option value="{{ group }}">{{ group }}</option>{% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select id="roleFilter" class="form-select">
+                            <option value="">All roles</option>
+                            {% for role in roles %}<option value="{{ role }}">{{ role }}</option>{% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <button id="clearFilters" class="btn btn-outline-secondary w-100" type="button">Clear</button>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle" id="usersTable">
+                        <thead>
+                            <tr>
+                                <th style="width:36px"><input id="selectAll" type="checkbox" aria-label="Select all users"></th>
+                                <th>Status</th>
+                                <th>User</th>
+                                <th>Groups</th>
+                                <th>Roles</th>
+                                <th>Topics / ACLs</th>
+                                <th class="text-end">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for user in user_summaries %}
+                            <tr class="{% if user.username == selected %}table-primary{% endif %}"
+                                data-search="{{ (user.username ~ ' ' ~ user.groups|join(' ') ~ ' ' ~ user.roles|join(' ') ~ ' ' ~ user.topics|join(' '))|lower }}"
+                                data-groups="{{ user.groups|join(' ') }}"
+                                data-roles="{{ user.roles|join(' ') }}">
+                                <td><input class="row-select" type="checkbox" name="selected_user" value="{{ user.username }}" aria-label="Select {{ user.username }}"></td>
+                                <td>
+                                    {% if user.disabled %}
+                                        <span id="user-status-{{ user.username }}" class="status-pill is-disabled">Disabled</span>
+                                    {% else %}
+                                        <span id="user-status-{{ user.username }}" class="status-pill is-enabled">Enabled</span>
+                                    {% endif %}
+                                </td>
+                                <td><a class="fw-semibold user-link" href="{{ url_for('clients') }}?selected={{ user.username }}">{{ user.username }}</a></td>
+                                <td>
+                                    {% for group in user.groups %}
+                                        <span class="badge text-bg-secondary">{{ group }}</span>
+                                    {% else %}
+                                        <span class="text-secondary small">None</span>
+                                    {% endfor %}
+                                </td>
+                                <td>
+                                    {% for role in user.roles %}
+                                        {% if role in user.direct_roles %}
+                                            <span class="badge text-bg-info" title="Direct role">{{ role }}</span>
+                                        {% else %}
+                                            <span class="badge text-bg-secondary" title="Inherited role">{{ role }}</span>
+                                        {% endif %}
+                                    {% else %}
+                                        <span class="text-secondary small">None</span>
+                                    {% endfor %}
+                                </td>
+                                <td class="small">
+                                    {% for topic in user.topics[:4] %}
+                                        <div>{{ topic }}</div>
+                                    {% endfor %}
+                                    {% if user.topics|length > 4 %}
+                                        <span class="text-secondary">+{{ user.topics|length - 4 }} more</span>
+                                    {% elif not user.topics %}
+                                        <span class="text-secondary">No ACL topics</span>
+                                    {% endif %}
+                                </td>
+                                <td class="text-end">
+                                    <div class="dropdown">
+                                        <button class="btn btn-sm btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">⋮</button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li><a class="dropdown-item" href="{{ url_for('clients') }}?selected={{ user.username }}">View details</a></li>
+                                            <li><button class="dropdown-item edit-user-btn" type="button" data-username="{{ user.username }}">Edit</button></li>
+                                            <li><button class="dropdown-item text-danger delete-user-btn" type="button" data-username="{{ user.username }}">Delete</button></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="d-flex gap-2 mt-3 align-items-center flex-wrap">
+                    <button id="bulkDeleteBtn" class="btn btn-outline-danger btn-sm" type="button" disabled>Delete Selected</button>
+                    <span id="selectedUserCount" class="small text-secondary">0 selected</span>
+                    <form id="bulkDeleteForm" method="post" action="{{ url_for('clients_bulk_delete') }}" style="display:none"></form>
+                    <div class="ms-auto">
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination pagination-sm mb-0">
+                                <li class="page-item {% if page <= 1 %}disabled{% endif %}"><a class="page-link" href="{{ url_for('clients') }}?page={{ page-1 }}&per_page={{ per_page }}">Previous</a></li>
+                                <li class="page-item disabled"><span class="page-link">Page {{ page }}</span></li>
+                                <li class="page-item {% if (page*per_page) >= total %}disabled{% endif %}"><a class="page-link" href="{{ url_for('clients') }}?page={{ page+1 }}&per_page={{ per_page }}">Next</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        {% if selected %}
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <span id="selectedUserName">User: {{ selected }}</span>
+                <div class="d-flex gap-2">
+                    <form method="post" action="{{ url_for('clients_enable', username=selected) }}"><button class="btn btn-sm btn-success">Enable</button></form>
+                    <form method="post" action="{{ url_for('clients_disable', username=selected) }}"><button class="btn btn-sm btn-warning">Disable</button></form>
+                    <form method="post" action="{{ url_for('clients_delete', username=selected) }}" onsubmit="return confirm('Delete {{ selected }}?')"><button class="btn btn-sm btn-danger">Delete</button></form>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="selected-user-summary mb-3">
+                    <div>
+                        <span>Status</span>
+                        {% if selected_disabled %}
+                            <strong id="selectedStatusBadge" class="text-warning">Disabled</strong>
+                        {% else %}
+                            <strong id="selectedStatusBadge" class="text-success">Enabled</strong>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <span>Direct Roles</span>
+                        <strong>{{ assigned_roles|length }}</strong>
+                    </div>
+                    <div>
+                        <span>Groups</span>
+                        <strong>{{ assigned_groups|length }}</strong>
+                    </div>
+                </div>
+                <details class="raw-details">
+                    <summary>Raw Dynamic Security Details</summary>
+                    <pre class="details-box mt-3">{{ details }}</pre>
+                </details>
+                {% if assigned_groups %}
+                    <div class="mt-3">
+                        <div class="small fw-semibold text-secondary mb-2">Current groups</div>
+                        {% for group in assigned_groups %}<span class="badge text-bg-secondary">{{ group }}</span>{% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Change Password</div>
+                    <div class="card-body">
+                        <form method="post" action="{{ url_for('clients_password', username=selected) }}">
+                            <input class="form-control mb-3" type="password" name="password" required>
+                            <button class="btn btn-primary w-100">Change Password</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Roles</div>
+                    <div class="card-body">
+                        <div class="small fw-semibold text-secondary mb-2">Assign a role</div>
+                        <form method="post" action="{{ url_for('clients_role_add', username=selected) }}">
+                            <select class="form-select mb-3" name="role" required>
+                                {% for role in roles %}<option value="{{ role }}">{{ role }}</option>{% endfor %}
+                            </select>
+                            <input class="form-control mb-3" name="priority" placeholder="Priority optional">
+                            <button class="btn btn-primary w-100">Assign Role</button>
+                        </form>
+                        <hr>
+                        <div class="small fw-semibold text-secondary mb-2">Remove a role</div>
+                        {% if assigned_roles %}
+                            <div class="list-group">
+                                {% for role in assigned_roles %}
+                                <form class="list-group-item d-flex justify-content-between align-items-center gap-3" method="post" action="{{ url_for('clients_role_remove', username=selected) }}">
+                                    <input type="hidden" name="role" value="{{ role }}">
+                                    <span>{{ role }}</span>
+                                    <button class="btn btn-sm btn-outline-danger">Remove</button>
+                                </form>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="text-secondary small">This user has no assigned roles.</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="empty-state">Select a user to view details and manage access.</div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Add User Modal -->
+<div class="modal fade" id="addUserModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add User</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addUserForm" method="post" action="{{ url_for('clients_create') }}">
+                    <div class="mb-2">
+                        <label class="form-label small">Username</label>
+                        <input class="form-control" name="username" required>
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label small">Password</label>
+                        <input class="form-control" type="password" name="password" required>
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label small">Role (optional)</label>
+                        <select class="form-select" name="role">
+                            <option value="">None</option>
+                            {% for role in roles %}<option value="{{ role }}">{{ role }}</option>{% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label small">Group (optional)</label>
+                        <select class="form-select" name="group">
+                            <option value="">None</option>
+                            {% for group in groups %}<option value="{{ group }}">{{ group }}</option>{% endfor %}
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" form="addUserForm" class="btn btn-primary">Create</button>
+            </div>
+        </div>
+    </div>
+
+            <!-- Edit User Modal -->
+            <div class="modal fade" id="editUserModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-sm modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Edit User</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="editUserForm" method="post" action="">
+                                <input type="hidden" name="username" id="editUsername">
+                                <div class="mb-2">
+                                    <label class="form-label small">Password (leave blank to keep)</label>
+                                    <input class="form-control" type="password" name="password" id="editPassword">
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label small">Roles</label>
+                                    <select class="form-select" name="roles" id="editRoles" multiple size="6">
+                                        {% for role in roles %}<option value="{{ role }}">{{ role }}</option>{% endfor %}
+                                    </select>
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label small">Groups</label>
+                                    <select class="form-select" name="groups" id="editGroups" multiple size="6">
+                                        {% for group in groups %}<option value="{{ group }}">{{ group }}</option>{% endfor %}
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" form="editUserForm" class="btn btn-primary">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Delete Confirm Modal -->
+            <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-sm modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Confirm</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p id="deleteConfirmText">Are you sure?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button id="confirmDisableBtn" type="button" class="btn btn-warning">Disable</button>
+                            <button id="confirmDeleteBtn" type="button" class="btn btn-danger">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</div>
+
+<script>
+const searchInput = document.getElementById("userSearch");
+const groupFilter = document.getElementById("groupFilter");
+const roleFilter = document.getElementById("roleFilter");
+const clearFilters = document.getElementById("clearFilters");
+const rows = Array.from(document.querySelectorAll("#usersTable tbody tr"));
+
+const addUserBtn = document.getElementById("addUserBtn");
+if (addUserBtn) {
+    addUserBtn.addEventListener("click", () => {
+        const modalEl = document.getElementById("addUserModal");
+        if (!modalEl) return;
+        let tries = 0;
+        const showModal = () => {
+            tries += 1;
+            if (window.bootstrap && typeof bootstrap.Modal === 'function') {
+                if (modalEl.parentElement !== document.body) document.body.appendChild(modalEl);
+                new bootstrap.Modal(modalEl).show();
+                return;
+            }
+            if (tries < 40) {
+                setTimeout(showModal, 50);
+            } else {
+                console.warn('Bootstrap modal not available to show Add User modal');
+            }
+        };
+        showModal();
+    });
+}
+
+function applyUserFilters() {
+    const search = searchInput.value.trim().toLowerCase();
+    const group = groupFilter.value;
+    const role = roleFilter.value;
+    let visible = 0;
+    rows.forEach((row) => {
+        const matchesSearch = !search || row.dataset.search.includes(search);
+        const matchesGroup = !group || row.dataset.groups.split(" ").includes(group);
+        const matchesRole = !role || row.dataset.roles.split(" ").includes(role);
+        const show = matchesSearch && matchesGroup && matchesRole;
+        row.style.display = show ? "" : "none";
+        if (show) visible += 1;
+    });
+    const count = document.getElementById("visibleUserCount");
+    if (count) count.textContent = `${visible} visible`;
+}
+
+searchInput.addEventListener("input", applyUserFilters);
+groupFilter.addEventListener("change", applyUserFilters);
+roleFilter.addEventListener("change", applyUserFilters);
+clearFilters.addEventListener("click", () => {
+    searchInput.value = "";
+    groupFilter.value = "";
+    roleFilter.value = "";
+    applyUserFilters();
+});
+
+// Select all
+const selectAll = document.getElementById('selectAll');
+if (selectAll) {
+    selectAll.addEventListener('change', (e) => {
+        document.querySelectorAll('#usersTable tbody tr:not([style*="display: none"]) .row-select').forEach(cb => cb.checked = e.target.checked);
+        updateSelectedCount();
+    });
+}
+
+function updateSelectedCount() {
+    const selected = document.querySelectorAll('.row-select:checked').length;
+    const label = document.getElementById('selectedUserCount');
+    if (label) label.textContent = `${selected} selected`;
+    if (bulkDeleteBtn) bulkDeleteBtn.disabled = selected === 0;
+}
+
+document.addEventListener('change', (e) => {
+    if (e.target.matches('.row-select')) updateSelectedCount();
+});
+
+// Bulk delete
+const bulkDeleteBtn = document.getElementById('bulkDeleteBtn');
+const bulkDeleteForm = document.getElementById('bulkDeleteForm');
+if (bulkDeleteBtn && bulkDeleteForm) {
+    bulkDeleteBtn.addEventListener('click', () => {
+        const selected = Array.from(document.querySelectorAll('.row-select:checked')).map(i => i.value);
+        if (!selected.length) return alert('No users selected');
+        if (!confirm(`Permanently delete ${selected.length} selected user(s)? This cannot be undone.`)) return;
+        // build form
+        bulkDeleteForm.innerHTML = '';
+        selected.forEach(u => {
+            const inp = document.createElement('input'); inp.type='hidden'; inp.name='usernames'; inp.value = u; bulkDeleteForm.appendChild(inp);
+        });
+        bulkDeleteForm.submit();
+    });
+}
+
+// Delegate clicks for edit/delete/user links so handlers work after SPA swaps
+let currentDeleteUser = null;
+document.addEventListener('click', async (e) => {
+    const editBtn = e.target.closest('.edit-user-btn');
+    if (editBtn) {
+        const username = editBtn.dataset.username;
+        try {
+            const res = await fetch(`{{ url_for('clients_json', username='__USER__') }}`.replace('__USER__', encodeURIComponent(username)));
+            if (!res.ok) throw new Error('Not found');
+            const data = await res.json();
+            document.getElementById('editUsername').value = data.username;
+            document.getElementById('editPassword').value = '';
+            const rolesSel = document.getElementById('editRoles');
+            Array.from(rolesSel.options).forEach(o => o.selected = data.roles.includes(o.value));
+            const groupsSel = document.getElementById('editGroups');
+            Array.from(groupsSel.options).forEach(o => o.selected = data.groups.includes(o.value));
+            const form = document.getElementById('editUserForm');
+            form.action = `{{ url_for('clients_update', username='__USER__') }}`.replace('__USER__', encodeURIComponent(username));
+            const modalEl = document.getElementById('editUserModal');
+            if (modalEl.parentElement !== document.body) document.body.appendChild(modalEl);
+            new bootstrap.Modal(modalEl).show();
+        } catch (err) {
+            alert('Failed to load user details');
+        }
+        return;
+    }
+    
+    const deleteBtn = e.target.closest('.delete-user-btn');
+    if (deleteBtn) {
+        currentDeleteUser = deleteBtn.dataset.username;
+        document.getElementById('deleteConfirmText').textContent = `Disable or permanently delete ${currentDeleteUser}?`;
+        const modalEl = document.getElementById('deleteConfirmModal');
+        if (modalEl.parentElement !== document.body) document.body.appendChild(modalEl);
+        new bootstrap.Modal(modalEl).show();
+        return;
+    }
+});
+
+document.getElementById('confirmDisableBtn').addEventListener('click', async () => {
+    if (!currentDeleteUser) return;
+    try {
+        const res = await fetch(`{{ url_for('clients_disable', username='__USER__') }}`.replace('__USER__', encodeURIComponent(currentDeleteUser)), { method: 'POST' });
+        if (!res.ok) throw new Error('fail');
+        const rowStatus = document.getElementById(`user-status-${currentDeleteUser}`);
+        if (rowStatus) {
+            rowStatus.textContent = 'Disabled';
+            rowStatus.classList.remove('is-enabled');
+            rowStatus.classList.add('is-disabled');
+        }
+        const selectedStatus = document.getElementById('selectedStatusBadge');
+        if (selectedStatus && document.getElementById('selectedUserName')?.textContent?.includes(currentDeleteUser)) {
+            selectedStatus.textContent = 'Disabled';
+            selectedStatus.classList.remove('text-success');
+            selectedStatus.classList.add('text-warning');
+        }
+        // show undo alert
+        const area = document.getElementById('flash-area');
+        const div = document.createElement('div'); div.className = 'alert alert-warning alert-dismissible fade show';
+        div.innerHTML = `Disabled ${currentDeleteUser}. <a href="#" id="undoLink">Undo</a><button type="button" class="btn-close" data-bs-dismiss="alert"></button>`;
+        area.prepend(div);
+        document.getElementById('undoLink').addEventListener('click', async (ev) => {
+            ev.preventDefault();
+            await fetch(`{{ url_for('clients_enable', username='__USER__') }}`.replace('__USER__', encodeURIComponent(currentDeleteUser)), { method: 'POST' });
+            if (rowStatus) {
+                rowStatus.textContent = 'Enabled';
+                rowStatus.classList.remove('is-disabled');
+                rowStatus.classList.add('is-enabled');
+            }
+            if (selectedStatus && document.getElementById('selectedUserName')?.textContent?.includes(currentDeleteUser)) {
+                selectedStatus.textContent = 'Enabled';
+                selectedStatus.classList.remove('text-warning');
+                selectedStatus.classList.add('text-success');
+            }
+            div.remove();
+        });
+        bootstrap.Modal.getInstance(document.getElementById('deleteConfirmModal')).hide();
+    } catch (err) {
+        alert('Failed');
+    }
+});
+
+document.getElementById('confirmDeleteBtn').addEventListener('click', async () => {
+    if (!currentDeleteUser) return;
+    try {
+        const res = await fetch(`{{ url_for('clients_delete', username='__USER__') }}`.replace('__USER__', encodeURIComponent(currentDeleteUser)), { method: 'POST' });
+        if (!res.ok) throw new Error('fail');
+        // reload page
+        location.reload();
+    } catch (err) {
+        alert('Failed');
+    }
+});
+</script>
+{% endblock %}

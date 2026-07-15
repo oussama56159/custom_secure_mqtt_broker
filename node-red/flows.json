@@ -1,0 +1,1370 @@
+[
+    {
+        "id": "phase3_tab",
+        "type": "tab",
+        "label": "Phase 3 - Secure MQTT",
+        "disabled": false,
+        "info": "Auth dashboard with role-based access, charts, alerts, message log, and security tests."
+    },
+    {
+        "id": "p3_ui_base",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-dark",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#097479",
+                    "value": "#097479",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#097479",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#0eb8c0",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#555555",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#eeeeee",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#097479",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Secure MQTT Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "p3_ui_tab_login",
+        "type": "ui_tab",
+        "name": "Login",
+        "icon": "lock",
+        "order": 0,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "p3_ui_tab_dashboard",
+        "type": "ui_tab",
+        "name": "Dashboard",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": true
+    },
+    {
+        "id": "p3_ui_tab_charts",
+        "type": "ui_tab",
+        "name": "Charts",
+        "icon": "show_chart",
+        "order": 2,
+        "disabled": false,
+        "hidden": true
+    },
+    {
+        "id": "p3_ui_tab_messages",
+        "type": "ui_tab",
+        "name": "Message Log",
+        "icon": "list",
+        "order": 3,
+        "disabled": false,
+        "hidden": true
+    },
+    {
+        "id": "p3_ui_tab_security",
+        "type": "ui_tab",
+        "name": "Security Tests",
+        "icon": "security",
+        "order": 4,
+        "disabled": false,
+        "hidden": true
+    },
+    {
+        "id": "p3_ui_tab_logs",
+        "type": "ui_tab",
+        "name": "Broker Logs",
+        "icon": "description",
+        "order": 5,
+        "disabled": false,
+        "hidden": true
+    },
+    {
+        "id": "p3_ui_grp_login",
+        "type": "ui_group",
+        "name": "Sign in",
+        "tab": "p3_ui_tab_login",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "p3_ui_grp_session",
+        "type": "ui_group",
+        "name": "Session",
+        "tab": "p3_ui_tab_dashboard",
+        "order": 1,
+        "disp": true,
+        "width": "12",
+        "collapse": false
+    },
+    {
+        "id": "p3_ui_grp_sensors",
+        "type": "ui_group",
+        "name": "Live sensor data",
+        "tab": "p3_ui_tab_dashboard",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "p3_ui_grp_conn",
+        "type": "ui_group",
+        "name": "Connection status",
+        "tab": "p3_ui_tab_dashboard",
+        "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "p3_ui_grp_alerts",
+        "type": "ui_group",
+        "name": "Alerts",
+        "tab": "p3_ui_tab_dashboard",
+        "order": 4,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "p3_ui_grp_stats",
+        "type": "ui_group",
+        "name": "Statistics (session)",
+        "tab": "p3_ui_tab_dashboard",
+        "order": 5,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "p3_ui_grp_chart_temp",
+        "type": "ui_group",
+        "name": "Temperature history (1 hour)",
+        "tab": "p3_ui_tab_charts",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "p3_ui_grp_chart_hum",
+        "type": "ui_group",
+        "name": "Humidity history (1 hour)",
+        "tab": "p3_ui_tab_charts",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "p3_ui_grp_messages",
+        "type": "ui_group",
+        "name": "MQTT message feed",
+        "tab": "p3_ui_tab_messages",
+        "order": 1,
+        "disp": true,
+        "width": "12",
+        "collapse": false
+    },
+    {
+        "id": "p3_ui_grp_sec_basic",
+        "type": "ui_group",
+        "name": "Basic tests (Operator+)",
+        "tab": "p3_ui_tab_security",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "p3_ui_grp_sec_advanced",
+        "type": "ui_group",
+        "name": "Advanced tests (Admin only)",
+        "tab": "p3_ui_tab_security",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "p3_ui_grp_results",
+        "type": "ui_group",
+        "name": "Expected result",
+        "tab": "p3_ui_tab_security",
+        "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "p3_ui_grp_logs",
+        "type": "ui_group",
+        "name": "Mosquitto log (last 30 lines)",
+        "tab": "p3_ui_tab_logs",
+        "order": 1,
+        "disp": true,
+        "width": "12",
+        "collapse": false
+    },
+    {
+        "id": "p3_tls_dashboard",
+        "type": "tls-config",
+        "name": "dashboard cert",
+        "certType": "files",
+        "cert": "C:\\custom_mqtt_broker\\certificates\\client.crt",
+        "key": "C:\\custom_mqtt_broker\\certificates\\client.key",
+        "ca": "C:\\custom_mqtt_broker\\certificates\\ca.crt",
+        "certname": "",
+        "keyname": "",
+        "caname": "",
+        "servername": "localhost",
+        "verifyservercert": true
+    },
+    {
+        "id": "p3_tls_temp",
+        "type": "tls-config",
+        "name": "temperature_sensor cert",
+        "certType": "files",
+        "cert": "C:\\custom_mqtt_broker\\certificates\\temp_sensor.crt",
+        "key": "C:\\custom_mqtt_broker\\certificates\\temp_sensor.key",
+        "ca": "C:\\custom_mqtt_broker\\certificates\\ca.crt",
+        "certname": "",
+        "keyname": "",
+        "caname": "",
+        "servername": "localhost",
+        "verifyservercert": true
+    },
+    {
+        "id": "p3_tls_hum",
+        "type": "tls-config",
+        "name": "humidity_sensor cert",
+        "certType": "files",
+        "cert": "C:\\custom_mqtt_broker\\certificates\\hum_sensor.crt",
+        "key": "C:\\custom_mqtt_broker\\certificates\\hum_sensor.key",
+        "ca": "C:\\custom_mqtt_broker\\certificates\\ca.crt",
+        "certname": "",
+        "keyname": "",
+        "caname": "",
+        "servername": "localhost",
+        "verifyservercert": true
+    },
+    {
+        "id": "p3_tls_no_cert",
+        "type": "tls-config",
+        "name": "CA only (no client cert)",
+        "certType": "files",
+        "cert": "",
+        "key": "",
+        "ca": "C:\\custom_mqtt_broker\\certificates\\ca.crt",
+        "certname": "",
+        "keyname": "",
+        "caname": "",
+        "servername": "localhost",
+        "verifyservercert": true
+    },
+    {
+        "id": "p3_tls_invalid",
+        "type": "tls-config",
+        "name": "invalid self-signed cert",
+        "certType": "files",
+        "cert": "C:\\custom_mqtt_broker\\certificates\\invalid.crt",
+        "key": "C:\\custom_mqtt_broker\\certificates\\invalid.key",
+        "ca": "C:\\custom_mqtt_broker\\certificates\\ca.crt",
+        "certname": "",
+        "keyname": "",
+        "caname": "",
+        "servername": "localhost",
+        "verifyservercert": true
+    },
+    {
+        "id": "p3_mqtt_dashboard",
+        "type": "mqtt-broker",
+        "name": "Broker as dashboard",
+        "broker": "localhost",
+        "port": "8883",
+        "tls": "p3_tls_dashboard",
+        "clientid": "nodered-dashboard",
+        "autoConnect": true,
+        "usetls": true,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true
+    },
+    {
+        "id": "p3_mqtt_temp",
+        "type": "mqtt-broker",
+        "name": "Broker as temperature_sensor",
+        "broker": "localhost",
+        "port": "8883",
+        "tls": "p3_tls_temp",
+        "clientid": "nodered-temperature-sensor",
+        "autoConnect": true,
+        "usetls": true,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true
+    },
+    {
+        "id": "p3_mqtt_hum",
+        "type": "mqtt-broker",
+        "name": "Broker as humidity_sensor",
+        "broker": "localhost",
+        "port": "8883",
+        "tls": "p3_tls_hum",
+        "clientid": "nodered-humidity-sensor",
+        "autoConnect": true,
+        "usetls": true,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true
+    },
+    {
+        "id": "p3_mqtt_no_cert",
+        "type": "mqtt-broker",
+        "name": "Broker without client cert",
+        "broker": "localhost",
+        "port": "8883",
+        "tls": "p3_tls_no_cert",
+        "clientid": "nodered-no-cert-test",
+        "autoConnect": false,
+        "usetls": true,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true
+    },
+    {
+        "id": "p3_mqtt_invalid",
+        "type": "mqtt-broker",
+        "name": "Broker with invalid cert",
+        "broker": "localhost",
+        "port": "8883",
+        "tls": "p3_tls_invalid",
+        "clientid": "nodered-invalid-cert-test",
+        "autoConnect": false,
+        "usetls": true,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true
+    },
+    {
+        "id": "p3_ui_form_login",
+        "type": "ui_form",
+        "z": "phase3_tab",
+        "name": "",
+        "label": "Dashboard login",
+        "group": "p3_ui_grp_login",
+        "order": 1,
+        "width": 6,
+        "height": 1,
+        "options": [
+            {
+                "label": "Username",
+                "value": "username",
+                "type": "text",
+                "required": true
+            },
+            {
+                "label": "Password",
+                "value": "password",
+                "type": "password",
+                "required": true
+            }
+        ],
+        "formValue": {
+            "username": "",
+            "password": ""
+        },
+        "payload": "",
+        "submit": "Login",
+        "cancel": "Clear",
+        "topic": "login",
+        "x": 170,
+        "y": 80,
+        "wires": [
+            [
+                "p3_fn_auth"
+            ]
+        ]
+    },
+    {
+        "id": "p3_fn_auth",
+        "type": "function",
+        "z": "phase3_tab",
+        "name": "Authenticate user",
+        "func": "const USERS = {\n    admin:    { password: \"admin123\",    role: \"admin\",    label: \"Admin\" },\n    operator: { password: \"operator123\", role: \"operator\", label: \"Operator\" },\n    viewer:   { password: \"viewer123\",   role: \"viewer\",   label: \"Viewer\" }\n};\nconst SESSION_MS = 30 * 60 * 1000;\nconst username = (msg.payload.username || \"\").trim().toLowerCase();\nconst password = msg.payload.password || \"\";\nconst user = USERS[username];\nif (!user || user.password !== password) {\n    return [null, { payload: \"<span style='color:#ff5252'>Invalid username or password</span>\" }];\n}\nconst session = {\n    username,\n    role: user.role,\n    label: user.label,\n    loginTime: Date.now(),\n    expiresAt: Date.now() + SESSION_MS\n};\nflow.set(\"session\", session);\nconst tabShow = {\n    admin: [\"p3_ui_tab_dashboard\", \"p3_ui_tab_charts\", \"p3_ui_tab_messages\", \"p3_ui_tab_security\", \"p3_ui_tab_logs\"],\n    operator: [\"p3_ui_tab_dashboard\", \"p3_ui_tab_charts\", \"p3_ui_tab_messages\", \"p3_ui_tab_security\"],\n    viewer: [\"p3_ui_tab_dashboard\", \"p3_ui_tab_charts\"]\n};\nconst show = tabShow[user.role] || [];\nconst hide = [\"p3_ui_tab_login\"];\nconst groupShow = {\n    admin: [\"p3_ui_grp_sec_basic\", \"p3_ui_grp_sec_advanced\"],\n    operator: [\"p3_ui_grp_sec_basic\"],\n    viewer: []\n};\nconst groupHide = {\n    admin: [],\n    operator: [\"p3_ui_grp_sec_advanced\"],\n    viewer: [\"p3_ui_grp_sec_basic\", \"p3_ui_grp_sec_advanced\", \"p3_ui_grp_messages\"]\n};\nconst ctrl = {\n    payload: {\n        tab: { show, hide },\n        group: { show: groupShow[user.role] || [], hide: groupHide[user.role] || [] }\n    }\n};\nreturn [ctrl, { payload: \"<span style='color:#00b500'>Welcome, \" + user.label + \"!</span>\" }];",
+        "outputs": 2,
+        "noerr": 0,
+        "x": 420,
+        "y": 80,
+        "wires": [
+            [
+                "p3_ui_control"
+            ],
+            [
+                "p3_text_login_err"
+            ]
+        ]
+    },
+    {
+        "id": "p3_text_login_err",
+        "type": "ui_text",
+        "z": "phase3_tab",
+        "group": "p3_ui_grp_login",
+        "order": 2,
+        "width": 6,
+        "height": 2,
+        "name": "",
+        "label": "Status",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 660,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "p3_ui_control",
+        "type": "ui_ui_control",
+        "z": "phase3_tab",
+        "name": "Tab visibility",
+        "events": "all",
+        "x": 660,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "p3_btn_logout",
+        "type": "ui_button",
+        "z": "phase3_tab",
+        "name": "",
+        "group": "p3_ui_grp_session",
+        "order": 2,
+        "width": 3,
+        "height": 1,
+        "label": "Logout",
+        "color": "",
+        "bgcolor": "#555555",
+        "payload": "logout",
+        "payloadType": "str",
+        "topic": "logout",
+        "x": 170,
+        "y": 160,
+        "wires": [
+            [
+                "p3_fn_logout"
+            ]
+        ]
+    },
+    {
+        "id": "p3_fn_logout",
+        "type": "function",
+        "z": "phase3_tab",
+        "name": "Clear session",
+        "func": "flow.set(\"session\", null);\nreturn {\n    payload: {\n        tab: {\n            show: [\"p3_ui_tab_login\"],\n            hide: [\"p3_ui_tab_dashboard\", \"p3_ui_tab_charts\", \"p3_ui_tab_messages\", \"p3_ui_tab_security\", \"p3_ui_tab_logs\"]\n        }\n    }\n};",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 400,
+        "y": 160,
+        "wires": [
+            [
+                "p3_ui_control"
+            ]
+        ]
+    },
+    {
+        "id": "p3_text_session",
+        "type": "ui_text",
+        "z": "phase3_tab",
+        "group": "p3_ui_grp_session",
+        "order": 1,
+        "width": 9,
+        "height": 1,
+        "name": "",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "x": 660,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "p3_inj_session",
+        "type": "inject",
+        "z": "phase3_tab",
+        "name": "Session bar refresh",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "10",
+        "once": true,
+        "onceDelay": 0.5,
+        "payload": "",
+        "payloadType": "date",
+        "x": 170,
+        "y": 200,
+        "wires": [
+            [
+                "p3_fn_session_bar"
+            ]
+        ]
+    },
+    {
+        "id": "p3_fn_session_bar",
+        "type": "function",
+        "z": "phase3_tab",
+        "name": "Update session bar",
+        "func": "const session = flow.get(\"session\");\nif (!session) {\n    msg.payload = \"Not logged in\";\n    return msg;\n}\nconst remaining = Math.max(0, Math.ceil((session.expiresAt - Date.now()) / 60000));\nmsg.payload = \"Logged in as <b>\" + session.username + \"</b> (\" + session.label + \") &mdash; \" + remaining + \" min remaining\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 420,
+        "y": 200,
+        "wires": [
+            [
+                "p3_text_session"
+            ]
+        ]
+    },
+    {
+        "id": "p3_inj_session_check",
+        "type": "inject",
+        "z": "phase3_tab",
+        "name": "Session timeout check",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "60",
+        "once": false,
+        "payload": "",
+        "payloadType": "date",
+        "x": 180,
+        "y": 240,
+        "wires": [
+            [
+                "p3_fn_session_check"
+            ]
+        ]
+    },
+    {
+        "id": "p3_fn_session_check",
+        "type": "function",
+        "z": "phase3_tab",
+        "name": "Expire stale sessions",
+        "func": "const session = flow.get(\"session\");\nif (!session) return null;\nif (Date.now() > session.expiresAt) {\n    flow.set(\"session\", null);\n    node.warn(\"Session expired for \" + session.username);\n    return {\n        payload: {\n            tab: {\n                show: [\"p3_ui_tab_login\"],\n                hide: [\"p3_ui_tab_dashboard\", \"p3_ui_tab_charts\", \"p3_ui_tab_messages\", \"p3_ui_tab_security\", \"p3_ui_tab_logs\"]\n            }\n        }\n    };\n}\nreturn null;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 440,
+        "y": 240,
+        "wires": [
+            [
+                "p3_ui_control"
+            ]
+        ]
+    },
+    {
+        "id": "p3_inj_temp",
+        "type": "inject",
+        "z": "phase3_tab",
+        "name": "Simulate temperature every 5s",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "5",
+        "once": true,
+        "onceDelay": 1,
+        "payload": "",
+        "payloadType": "date",
+        "x": 180,
+        "y": 300,
+        "wires": [
+            [
+                "p3_fn_temp"
+            ]
+        ]
+    },
+    {
+        "id": "p3_fn_temp",
+        "type": "function",
+        "z": "phase3_tab",
+        "name": "Build temperature payload",
+        "func": "const value = Number((20 + Math.random() * 10).toFixed(1));\nmsg.topic = \"sensors/temperature\";\nmsg.payload = JSON.stringify({\n    sensor: \"temperature_sensor\",\n    temperature_c: value,\n    timestamp: new Date().toISOString()\n});\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 450,
+        "y": 300,
+        "wires": [
+            [
+                "p3_out_temp"
+            ]
+        ]
+    },
+    {
+        "id": "p3_out_temp",
+        "type": "mqtt out",
+        "z": "phase3_tab",
+        "name": "Publish temperature",
+        "topic": "",
+        "qos": "0",
+        "retain": "false",
+        "broker": "p3_mqtt_temp",
+        "x": 710,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "p3_inj_hum",
+        "type": "inject",
+        "z": "phase3_tab",
+        "name": "Simulate humidity every 5s",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "5",
+        "once": true,
+        "onceDelay": 2,
+        "payload": "",
+        "payloadType": "date",
+        "x": 180,
+        "y": 360,
+        "wires": [
+            [
+                "p3_fn_hum"
+            ]
+        ]
+    },
+    {
+        "id": "p3_fn_hum",
+        "type": "function",
+        "z": "phase3_tab",
+        "name": "Build humidity payload",
+        "func": "const value = Number((40 + Math.random() * 30).toFixed(1));\nmsg.topic = \"sensors/humidity\";\nmsg.payload = JSON.stringify({\n    sensor: \"humidity_sensor\",\n    humidity: value,\n    timestamp: new Date().toISOString()\n});\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 440,
+        "y": 360,
+        "wires": [
+            [
+                "p3_out_hum"
+            ]
+        ]
+    },
+    {
+        "id": "p3_out_hum",
+        "type": "mqtt out",
+        "z": "phase3_tab",
+        "name": "Publish humidity",
+        "topic": "",
+        "qos": "0",
+        "retain": "false",
+        "broker": "p3_mqtt_hum",
+        "x": 700,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "p3_in_dashboard",
+        "type": "mqtt in",
+        "z": "phase3_tab",
+        "name": "Subscribe sensors/#",
+        "topic": "sensors/#",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "p3_mqtt_dashboard",
+        "x": 170,
+        "y": 420,
+        "wires": [
+            [
+                "p3_fn_process"
+            ]
+        ]
+    },
+    {
+        "id": "p3_fn_process",
+        "type": "function",
+        "z": "phase3_tab",
+        "name": "Process sensors + stats + alerts",
+        "func": "let data = msg.payload;\nif (typeof data === \"string\") {\n    try { data = JSON.parse(data); } catch (e) { return [null, null, null, null, null, null, null]; }\n}\nconst now = Date.now();\nconst topic = msg.topic || \"\";\nlet tempVal = null;\nlet humVal = null;\nif (topic.includes(\"temperature\")) {\n    tempVal = data.temperature_c;\n    const lastSeen = flow.get(\"lastSeen\") || {};\n    lastSeen.temperature = now;\n    flow.set(\"lastSeen\", lastSeen);\n} else if (topic.includes(\"humidity\")) {\n    humVal = data.humidity;\n    const lastSeen = flow.get(\"lastSeen\") || {};\n    lastSeen.humidity = now;\n    flow.set(\"lastSeen\", lastSeen);\n} else {\n    return [null, null, null, null, null, null, null];\n}\nconst HOUR = 3600000;\nlet hist = flow.get(\"history\") || { temp: [], hum: [] };\nfunction addHist(arr, val) {\n    arr.push({ x: now, y: val });\n    while (arr.length && (now - arr[0].x) > HOUR) arr.shift();\n}\nif (tempVal !== null) addHist(hist.temp, tempVal);\nif (humVal !== null) addHist(hist.hum, humVal);\nflow.set(\"history\", hist);\nlet stats = flow.get(\"stats\") || {\n    temp: { min: null, max: null, sum: 0, count: 0 },\n    hum: { min: null, max: null, sum: 0, count: 0 }\n};\nfunction updStats(s, val) {\n    s.count++;\n    s.sum += val;\n    s.min = s.min === null ? val : Math.min(s.min, val);\n    s.max = s.max === null ? val : Math.max(s.max, val);\n}\nif (tempVal !== null) updStats(stats.temp, tempVal);\nif (humVal !== null) updStats(stats.hum, humVal);\nflow.set(\"stats\", stats);\nfunction fmtStats(name, s, unit) {\n    if (!s.count) return name + \": waiting for data\";\n    return name + \": min=\" + s.min + unit + \"  max=\" + s.max + unit + \"  avg=\" + (s.sum / s.count).toFixed(1) + unit;\n}\nconst alerts = [];\nif (tempVal !== null) {\n    if (tempVal > 30) alerts.push(\"<span style='color:#ff5252;font-weight:bold'>&#9888; HIGH TEMP: \" + tempVal + \" deg C (threshold 30 deg C)</span>\");\n    if (tempVal < 15) alerts.push(\"<span style='color:#448aff;font-weight:bold'>&#9888; LOW TEMP: \" + tempVal + \" deg C (threshold 15 deg C)</span>\");\n}\nif (humVal !== null) {\n    if (humVal > 70) alerts.push(\"<span style='color:#ff5252;font-weight:bold'>&#9888; HIGH HUMIDITY: \" + humVal + \"% (threshold 70%)</span>\");\n    if (humVal < 30) alerts.push(\"<span style='color:#448aff;font-weight:bold'>&#9888; LOW HUMIDITY: \" + humVal + \"% (threshold 30%)</span>\");\n}\nconst alertMsg = { payload: alerts.length ? alerts.join(\"<br>\") : \"<span style='color:#00b500'>&#10003; All values within thresholds</span>\" };\nlet msgLog = flow.get(\"msgLog\") || [];\nconst ts = new Date(now).toLocaleTimeString();\nmsgLog.unshift(\"[\" + ts + \"] \" + topic + \" -> \" + JSON.stringify(data));\nif (msgLog.length > 40) msgLog = msgLog.slice(0, 40);\nflow.set(\"msgLog\", msgLog);\nconst tempGauge = tempVal !== null ? { payload: tempVal } : null;\nconst humGauge = humVal !== null ? { payload: humVal } : null;\nconst tempChart = tempVal !== null ? { payload: [{ series: [\"Temperature °C\"], data: [hist.temp.slice()], labels: [\"\"] }] } : null;\nconst humChart = humVal !== null ? { payload: [{ series: [\"Humidity %\"], data: [hist.hum.slice()], labels: [\"\"] }] } : null;\nconst statsMsg = { payload: fmtStats(\"Temperature\", stats.temp, \"°C\") + \"<br>\" + fmtStats(\"Humidity\", stats.hum, \"%\") };\nconst logMsg = { payload: msgLog.join(\"<br>\") };\nreturn [tempGauge, humGauge, tempChart, humChart, statsMsg, alertMsg, logMsg];",
+        "outputs": 7,
+        "noerr": 0,
+        "x": 450,
+        "y": 420,
+        "wires": [
+            [
+                "p3_gauge_temp"
+            ],
+            [
+                "p3_gauge_hum"
+            ],
+            [
+                "p3_chart_temp"
+            ],
+            [
+                "p3_chart_hum"
+            ],
+            [
+                "p3_text_stats"
+            ],
+            [
+                "p3_text_alerts"
+            ],
+            [
+                "p3_fn_gate_msglog"
+            ]
+        ]
+    },
+    {
+        "id": "p3_fn_gate_msglog",
+        "type": "function",
+        "z": "phase3_tab",
+        "name": "Gate message log by role",
+        "func": "const session = flow.get(\"session\");\nif (!session || session.role === \"viewer\") return null;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 700,
+        "y": 480,
+        "wires": [
+            [
+                "p3_text_msglog"
+            ]
+        ]
+    },
+    {
+        "id": "p3_gauge_temp",
+        "type": "ui_gauge",
+        "z": "phase3_tab",
+        "name": "",
+        "group": "p3_ui_grp_sensors",
+        "order": 1,
+        "width": 6,
+        "height": 4,
+        "gtype": "gage",
+        "title": "Temperature",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "50",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "25",
+        "seg2": "35",
+        "x": 720,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "p3_gauge_hum",
+        "type": "ui_gauge",
+        "z": "phase3_tab",
+        "name": "",
+        "group": "p3_ui_grp_sensors",
+        "order": 2,
+        "width": 6,
+        "height": 4,
+        "gtype": "gage",
+        "title": "Humidity",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "50",
+        "seg2": "75",
+        "x": 720,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "p3_chart_temp",
+        "type": "ui_chart",
+        "z": "phase3_tab",
+        "name": "",
+        "group": "p3_ui_grp_chart_temp",
+        "order": 1,
+        "width": 6,
+        "height": 5,
+        "label": "Temperature",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "Waiting for temperature data...",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "50",
+        "removeOlder": "1",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "hours",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4"
+        ],
+        "outputs": 1,
+        "x": 720,
+        "y": 520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "p3_chart_hum",
+        "type": "ui_chart",
+        "z": "phase3_tab",
+        "name": "",
+        "group": "p3_ui_grp_chart_hum",
+        "order": 1,
+        "width": 6,
+        "height": 5,
+        "label": "Humidity",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "Waiting for humidity data...",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": "1",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "hours",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#2ca02c"
+        ],
+        "outputs": 1,
+        "x": 720,
+        "y": 580,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "p3_text_stats",
+        "type": "ui_text",
+        "z": "phase3_tab",
+        "group": "p3_ui_grp_stats",
+        "order": 1,
+        "width": 6,
+        "height": 3,
+        "name": "",
+        "label": "Min / Max / Avg",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "x": 720,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "p3_text_alerts",
+        "type": "ui_text",
+        "z": "phase3_tab",
+        "group": "p3_ui_grp_alerts",
+        "order": 1,
+        "width": 6,
+        "height": 3,
+        "name": "",
+        "label": "Threshold alerts",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "x": 720,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "p3_text_msglog",
+        "type": "ui_text",
+        "z": "phase3_tab",
+        "group": "p3_ui_grp_messages",
+        "order": 1,
+        "width": 12,
+        "height": 8,
+        "name": "",
+        "label": "Real-time MQTT feed",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "x": 720,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "p3_inj_conn",
+        "type": "inject",
+        "z": "phase3_tab",
+        "name": "Connection status refresh",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "5",
+        "once": true,
+        "onceDelay": 3,
+        "payload": "",
+        "payloadType": "date",
+        "x": 190,
+        "y": 480,
+        "wires": [
+            [
+                "p3_fn_conn_status"
+            ]
+        ]
+    },
+    {
+        "id": "p3_fn_conn_status",
+        "type": "function",
+        "z": "phase3_tab",
+        "name": "Sensor connection indicators",
+        "func": "const session = flow.get(\"session\");\nif (!session) return null;\nconst now = Date.now();\nconst lastSeen = flow.get(\"lastSeen\") || {};\nconst timeout = 15000;\nfunction status(name, key) {\n    const ok = (now - (lastSeen[key] || 0)) < timeout;\n    const color = ok ? \"#00b500\" : \"#ca3838\";\n    const label = ok ? \"Connected\" : \"Offline\";\n    return \"<span style='color:\" + color + \";font-size:18px'>&#9679;</span> <b>\" + name + \":</b> \" + label;\n}\nmsg.payload = status(\"Temperature\", \"temperature\") + \" &nbsp;&nbsp;&nbsp; \" + status(\"Humidity\", \"humidity\");\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 460,
+        "y": 480,
+        "wires": [
+            [
+                "p3_text_conn"
+            ]
+        ]
+    },
+    {
+        "id": "p3_text_conn",
+        "type": "ui_text",
+        "z": "phase3_tab",
+        "group": "p3_ui_grp_conn",
+        "order": 1,
+        "width": 6,
+        "height": 2,
+        "name": "",
+        "label": "Sensor connectivity",
+        "format": "{{msg.payload}}",
+        "layout": "row-center",
+        "x": 720,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "p3_btn_wrong_topic",
+        "type": "ui_button",
+        "z": "phase3_tab",
+        "name": "",
+        "group": "p3_ui_grp_sec_basic",
+        "order": 1,
+        "width": 6,
+        "height": 1,
+        "label": "Wrong topic (temp cert -> humidity)",
+        "bgcolor": "#ca3838",
+        "payload": "wrong_topic",
+        "payloadType": "str",
+        "topic": "security_test",
+        "x": 190,
+        "y": 840,
+        "wires": [
+            [
+                "p3_fn_wrong_topic",
+                "p3_fn_result_wrong"
+            ]
+        ]
+    },
+    {
+        "id": "p3_fn_wrong_topic",
+        "type": "function",
+        "z": "phase3_tab",
+        "name": "Publish to unauthorized topic",
+        "func": "msg.topic = \"sensors/humidity\";\nmsg.payload = JSON.stringify({\n    sensor: \"temperature_sensor\",\n    humidity: 99,\n    note: \"should be blocked by ACL\"\n});\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 490,
+        "y": 820,
+        "wires": [
+            [
+                "p3_out_wrong_topic"
+            ]
+        ]
+    },
+    {
+        "id": "p3_out_wrong_topic",
+        "type": "mqtt out",
+        "z": "phase3_tab",
+        "name": "Try wrong topic",
+        "topic": "",
+        "qos": "0",
+        "retain": "false",
+        "broker": "p3_mqtt_temp",
+        "x": 760,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "p3_fn_result_wrong",
+        "type": "function",
+        "z": "phase3_tab",
+        "name": "Explain wrong topic result",
+        "func": "msg.payload = \"Expected: REJECTED by ACL. temperature_sensor can only publish to sensors/temperature.\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 500,
+        "y": 860,
+        "wires": [
+            [
+                "p3_text_result"
+            ]
+        ]
+    },
+    {
+        "id": "p3_btn_no_cert",
+        "type": "ui_button",
+        "z": "phase3_tab",
+        "name": "",
+        "group": "p3_ui_grp_sec_advanced",
+        "order": 1,
+        "width": 6,
+        "height": 1,
+        "label": "No client certificate",
+        "bgcolor": "#ca3838",
+        "payload": "no_cert",
+        "payloadType": "str",
+        "topic": "security_test",
+        "x": 170,
+        "y": 920,
+        "wires": [
+            [
+                "p3_fn_no_cert",
+                "p3_fn_result_no_cert"
+            ]
+        ]
+    },
+    {
+        "id": "p3_fn_no_cert",
+        "type": "function",
+        "z": "phase3_tab",
+        "name": "Try publish without cert",
+        "func": "msg.topic = \"sensors/temperature\";\nmsg.payload = \"no-cert-test\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 470,
+        "y": 900,
+        "wires": [
+            [
+                "p3_out_no_cert"
+            ]
+        ]
+    },
+    {
+        "id": "p3_out_no_cert",
+        "type": "mqtt out",
+        "z": "phase3_tab",
+        "name": "Publish without cert",
+        "topic": "",
+        "qos": "0",
+        "retain": "false",
+        "broker": "p3_mqtt_no_cert",
+        "x": 760,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "p3_fn_result_no_cert",
+        "type": "function",
+        "z": "phase3_tab",
+        "name": "Explain no cert result",
+        "func": "msg.payload = \"Expected: REJECTED at TLS/mTLS. Broker requires a client certificate signed by the local CA.\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 490,
+        "y": 940,
+        "wires": [
+            [
+                "p3_text_result"
+            ]
+        ]
+    },
+    {
+        "id": "p3_btn_invalid_cert",
+        "type": "ui_button",
+        "z": "phase3_tab",
+        "name": "",
+        "group": "p3_ui_grp_sec_advanced",
+        "order": 2,
+        "width": 6,
+        "height": 1,
+        "label": "Invalid certificate (self-signed)",
+        "bgcolor": "#ca3838",
+        "payload": "invalid_cert",
+        "payloadType": "str",
+        "topic": "security_test",
+        "x": 190,
+        "y": 1000,
+        "wires": [
+            [
+                "p3_fn_invalid_cert",
+                "p3_fn_result_invalid"
+            ]
+        ]
+    },
+    {
+        "id": "p3_fn_invalid_cert",
+        "type": "function",
+        "z": "phase3_tab",
+        "name": "Try publish with bad cert",
+        "func": "msg.topic = \"sensors/temperature\";\nmsg.payload = \"invalid-cert-test\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 480,
+        "y": 980,
+        "wires": [
+            [
+                "p3_out_invalid"
+            ]
+        ]
+    },
+    {
+        "id": "p3_out_invalid",
+        "type": "mqtt out",
+        "z": "phase3_tab",
+        "name": "Publish with invalid cert",
+        "topic": "",
+        "qos": "0",
+        "retain": "false",
+        "broker": "p3_mqtt_invalid",
+        "x": 770,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "p3_fn_result_invalid",
+        "type": "function",
+        "z": "phase3_tab",
+        "name": "Explain invalid cert result",
+        "func": "msg.payload = \"Expected: REJECTED at TLS. certificates/invalid.crt is self-signed and not trusted by the broker CA.\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 500,
+        "y": 1020,
+        "wires": [
+            [
+                "p3_text_result"
+            ]
+        ]
+    },
+    {
+        "id": "p3_text_result",
+        "type": "ui_text",
+        "z": "phase3_tab",
+        "group": "p3_ui_grp_results",
+        "order": 1,
+        "width": 6,
+        "height": 4,
+        "name": "",
+        "label": "Test explanation",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "x": 760,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "p3_inj_log",
+        "type": "inject",
+        "z": "phase3_tab",
+        "name": "Poll broker log every 10s",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "10",
+        "once": true,
+        "onceDelay": 5,
+        "payload": "",
+        "payloadType": "date",
+        "x": 180,
+        "y": 1080,
+        "wires": [
+            [
+                "p3_file_log"
+            ]
+        ]
+    },
+    {
+        "id": "p3_file_log",
+        "type": "file in",
+        "z": "phase3_tab",
+        "name": "Read mosquitto.log",
+        "filename": "C:\\custom_mqtt_broker\\secure-mqtt-broker\\logs\\mosquitto.log",
+        "format": "utf8",
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 440,
+        "y": 1080,
+        "wires": [
+            [
+                "p3_fn_tail_log"
+            ]
+        ]
+    },
+    {
+        "id": "p3_fn_tail_log",
+        "type": "function",
+        "z": "phase3_tab",
+        "name": "Tail log (admin only)",
+        "func": "const session = flow.get(\"session\");\nif (!session || session.role !== \"admin\") return null;\nconst lines = (typeof msg.payload === \"string\" ? msg.payload : \"\").split(/\\r?\\n/);\nmsg.payload = lines.slice(-30).join(\"<br>\");\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 690,
+        "y": 1080,
+        "wires": [
+            [
+                "p3_text_broker_log"
+            ]
+        ]
+    },
+    {
+        "id": "p3_text_broker_log",
+        "type": "ui_text",
+        "z": "phase3_tab",
+        "group": "p3_ui_grp_logs",
+        "order": 1,
+        "width": 12,
+        "height": 10,
+        "name": "",
+        "label": "Broker log",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "x": 920,
+        "y": 1080,
+        "wires": []
+    },
+    {
+        "id": "p3_status",
+        "type": "status",
+        "z": "phase3_tab",
+        "name": "MQTT node status",
+        "scope": [
+            "p3_in_dashboard",
+            "p3_out_temp",
+            "p3_out_hum",
+            "p3_out_wrong_topic",
+            "p3_out_no_cert",
+            "p3_out_invalid"
+        ],
+        "x": 170,
+        "y": 1140,
+        "wires": [
+            [
+                "p3_debug_status"
+            ]
+        ]
+    },
+    {
+        "id": "p3_debug_status",
+        "type": "debug",
+        "z": "phase3_tab",
+        "name": "MQTT status",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "status",
+        "targetType": "msg",
+        "x": 390,
+        "y": 1140,
+        "wires": []
+    }
+]

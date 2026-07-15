@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+{% block title %}Groups{% endblock %}
+{% block content %}
+<div class="mb-3">
+    <h1 class="h3 mb-0">Groups</h1>
+    <div class="text-secondary">Manage users through groups, then attach roles to those groups.</div>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">Create Group</div>
+            <div class="card-body">
+                <form method="post" action="{{ url_for('groups_create') }}">
+                    <input class="form-control mb-3" name="group" required>
+                    <button class="btn btn-primary w-100">Create Group</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="list-group mt-4">
+            <div class="mb-2">
+                <input id="groupListSearch" class="form-control form-control-sm" placeholder="Search groups">
+            </div>
+            {% for group in groups %}
+                <a class="list-group-item list-group-item-action {% if group == selected %}active{% endif %}" href="{{ url_for('groups', selected=group) }}">
+                    {{ group }}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="col-lg-8">
+        {% if selected %}
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span>Group: {{ selected }}</span>
+                <form method="post" action="{{ url_for('groups_delete', group=selected) }}" onsubmit="return confirm('Delete {{ selected }}?')">
+                    <button class="btn btn-sm btn-danger">Delete Group</button>
+                </form>
+            </div>
+            <div class="card-body">
+                <pre class="details-box">{{ details }}</pre>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Users In Group</div>
+                    <div class="card-body">
+                        <div class="small fw-semibold text-secondary mb-2">Add a user</div>
+                        <form method="post" action="{{ url_for('groups_client_add', group=selected) }}">
+                            <select class="form-select mb-3" name="username" required>
+                                {% for client in clients %}<option value="{{ client }}">{{ client }}</option>{% endfor %}
+                            </select>
+                            <input class="form-control mb-3" name="priority" placeholder="Priority optional">
+                            <button class="btn btn-primary w-100">Add User</button>
+                        </form>
+                        <hr>
+                        <div class="small fw-semibold text-secondary mb-2">Remove a user</div>
+                        <div class="mb-2"><input id="groupUserSearch" class="form-control form-control-sm" placeholder="Search users in group"></div>
+                        {% if group_clients %}
+                            <div class="list-group">
+                                {% for client in group_clients %}
+                                <form class="list-group-item d-flex justify-content-between align-items-center gap-3" method="post" action="{{ url_for('groups_client_remove', group=selected) }}">
+                                    <input type="hidden" name="username" value="{{ client }}">
+                                    <span>{{ client }}</span>
+                                    <button class="btn btn-sm btn-outline-danger">Remove</button>
+                                </form>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="text-secondary small">This group has no users.</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Roles On Group</div>
+                    <div class="card-body">
+                        <div class="small fw-semibold text-secondary mb-2">Assign a role</div>
+                        <form method="post" action="{{ url_for('groups_role_add', group=selected) }}">
+                            <select class="form-select mb-3" name="role" required>
+                                {% for role in roles %}<option value="{{ role }}">{{ role }}</option>{% endfor %}
+                            </select>
+                            <input class="form-control mb-3" name="priority" placeholder="Priority optional">
+                            <button class="btn btn-primary w-100">Assign Role</button>
+                        </form>
+                        <hr>
+                        <div class="small fw-semibold text-secondary mb-2">Remove a role</div>
+                        <div class="mb-2"><input id="groupRoleSearch" class="form-control form-control-sm" placeholder="Search roles on group"></div>
+                        {% if group_roles %}
+                            <div class="list-group">
+                                {% for role in group_roles %}
+                                <form class="list-group-item d-flex justify-content-between align-items-center gap-3" method="post" action="{{ url_for('groups_role_remove', group=selected) }}">
+                                    <input type="hidden" name="role" value="{{ role }}">
+                                    <span>{{ role }}</span>
+                                    <button class="btn btn-sm btn-outline-danger">Remove</button>
+                                </form>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="text-secondary small">This group has no roles.</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="empty-state">Select a group to view users and roles.</div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Groups page search filters
+const groupListSearch = document.getElementById('groupListSearch');
+if (groupListSearch) {
+    groupListSearch.addEventListener('input', () => {
+        const q = groupListSearch.value.trim().toLowerCase();
+        document.querySelectorAll('.list-group.mt-4 a.list-group-item').forEach(a => {
+            a.style.display = !q || a.textContent.toLowerCase().includes(q) ? '' : 'none';
+        });
+    });
+}
+
+const groupUserSearch = document.getElementById('groupUserSearch');
+if (groupUserSearch) {
+    groupUserSearch.addEventListener('input', () => {
+        const q = groupUserSearch.value.trim().toLowerCase();
+        const userForms = groupUserSearch.closest('.card')?.querySelectorAll('.list-group form') || [];
+        userForms.forEach(f => {
+            const txt = f.querySelector('span')?.textContent || '';
+            f.style.display = !q || txt.toLowerCase().includes(q) ? '' : 'none';
+        });
+    });
+}
+
+const groupRoleSearch = document.getElementById('groupRoleSearch');
+if (groupRoleSearch) {
+    groupRoleSearch.addEventListener('input', () => {
+        const q = groupRoleSearch.value.trim().toLowerCase();
+        const roleForms = groupRoleSearch.closest('.card')?.querySelectorAll('.list-group form') || [];
+        roleForms.forEach(f => {
+            const txt = f.querySelector('span')?.textContent || '';
+            f.style.display = !q || txt.toLowerCase().includes(q) ? '' : 'none';
+        });
+    });
+}
+</script>
+{% endblock %}

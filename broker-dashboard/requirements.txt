@@ -1,0 +1,7 @@
+# Flask Web Framework
+Flask==3.0.0
+
+# MQTT Client Library for telemetry monitoring
+paho-mqtt==1.6.1
+
+

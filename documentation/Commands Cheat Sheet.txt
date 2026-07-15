@@ -1,0 +1,304 @@
+Dynamic Security Commands Cheat Sheet
+=====================================
+
+Because Mosquitto is already in the Windows PATH, use:
+mosquitto_ctrl
+
+Broker used in this project:
+host: localhost
+port: 8883 (TLS enabled)
+admin user: admin
+admin password: stored in secure-mqtt-broker/admin-password.txt
+
+IMPORTANT: This broker requires BOTH certificate AND username/password authentication!
+
+In all commands below, replace:
+<ADMIN_PASSWORD> with the admin password (default: 906271)
+<USERNAME> with the client/user name
+<PASSWORD> with the client password
+<ROLE_NAME> with the role name
+<GROUP_NAME> with the group name
+<TOPIC> with the topic, for example sensors/temperature
+
+Base command format with TLS:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P <ADMIN_PASSWORD> dynsec <COMMAND>
+
+1. List / Check Existing Config
+-------------------------------
+
+List all users:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P <ADMIN_PASSWORD> dynsec listClients
+
+Show one user:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P <ADMIN_PASSWORD> dynsec getClient <USERNAME>
+
+List all roles:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P <ADMIN_PASSWORD> dynsec listRoles
+
+Show one role and its ACLs:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P <ADMIN_PASSWORD> dynsec getRole <ROLE_NAME>
+
+List all groups:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P <ADMIN_PASSWORD> dynsec listGroups
+
+Show one group:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P <ADMIN_PASSWORD> dynsec getGroup <GROUP_NAME>
+
+
+2. Users / Clients
+------------------
+
+Create a new user:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P <ADMIN_PASSWORD> dynsec createClient <USERNAME> -p <PASSWORD>
+
+Example:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P 906271 dynsec createClient temperature_sensor -p 906271
+
+Change a user password:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P <ADMIN_PASSWORD> dynsec setClientPassword <USERNAME> <NEW_PASSWORD>
+
+Example:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P 906271 dynsec setClientPassword temperature_sensor 654321
+
+Disable a user without deleting it:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P <ADMIN_PASSWORD> dynsec disableClient <USERNAME>
+
+Enable a disabled user:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P <ADMIN_PASSWORD> dynsec enableClient <USERNAME>
+
+Delete a user:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P <ADMIN_PASSWORD> dynsec deleteClient <USERNAME>
+
+
+3. Roles
+--------
+
+A role contains permissions.
+A user can have a role directly, or can receive a role through a group.
+
+Create a role:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P <ADMIN_PASSWORD> dynsec createRole <ROLE_NAME>
+
+Example:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P 906271 dynsec createRole temperature_publisher
+
+Delete a role:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P <ADMIN_PASSWORD> dynsec deleteRole <ROLE_NAME>
+
+Add a role to a user:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P <ADMIN_PASSWORD> dynsec addClientRole <USERNAME> <ROLE_NAME>
+
+Example:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P 906271 dynsec addClientRole temperature_sensor temperature_publisher
+
+Remove a role from a user:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P <ADMIN_PASSWORD> dynsec removeClientRole <USERNAME> <ROLE_NAME>
+
+Example:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P 906271 dynsec removeClientRole temperature_sensor temperature_publisher
+
+
+4. Publish Topic Permissions
+----------------------------
+
+To allow a user to publish on a topic:
+1. create a role
+2. add publishClientSend ACL to the role
+3. assign the role to the user
+
+Create publisher role:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P <ADMIN_PASSWORD> dynsec createRole <ROLE_NAME>
+
+Allow that role to publish to one topic:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P <ADMIN_PASSWORD> dynsec addRoleACL <ROLE_NAME> publishClientSend <TOPIC> allow
+
+Assign role to user:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P <ADMIN_PASSWORD> dynsec addClientRole <USERNAME> <ROLE_NAME>
+
+Full example:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P 906271 dynsec createClient temperature_sensor -p 906271
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P 906271 dynsec createRole temperature_publisher
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P 906271 dynsec addRoleACL temperature_publisher publishClientSend sensors/temperature allow
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P 906271 dynsec addClientRole temperature_sensor temperature_publisher
+
+Remove publish permission from a role:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P <ADMIN_PASSWORD> dynsec removeRoleACL <ROLE_NAME> publishClientSend <TOPIC> allow
+
+Example:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P 906271 dynsec removeRoleACL temperature_publisher publishClientSend sensors/temperature allow
+
+Change the topic a publisher can publish on:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P <ADMIN_PASSWORD> dynsec removeRoleACL <ROLE_NAME> publishClientSend <OLD_TOPIC> allow
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P <ADMIN_PASSWORD> dynsec addRoleACL <ROLE_NAME> publishClientSend <NEW_TOPIC> allow
+
+
+5. Subscribe Topic Permissions
+------------------------------
+
+To allow a dashboard/user to subscribe and receive messages:
+1. create a role
+2. add subscribePattern ACL
+3. add publishClientReceive ACL
+4. assign the role to the user
+
+Create subscriber role:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P <ADMIN_PASSWORD> dynsec createRole <ROLE_NAME>
+
+Allow subscribe to a topic filter:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P <ADMIN_PASSWORD> dynsec addRoleACL <ROLE_NAME> subscribePattern <TOPIC_FILTER> allow
+
+Allow receiving messages from that topic filter:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P <ADMIN_PASSWORD> dynsec addRoleACL <ROLE_NAME> publishClientReceive <TOPIC_FILTER> allow
+
+Assign role to user:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P <ADMIN_PASSWORD> dynsec addClientRole <USERNAME> <ROLE_NAME>
+
+Full example:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P 906271 dynsec createClient dashboard -p 906271
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P 906271 dynsec createRole dashboard_reader
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P 906271 dynsec addRoleACL dashboard_reader subscribePattern sensors/# allow
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P 906271 dynsec addRoleACL dashboard_reader publishClientReceive sensors/# allow
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P 906271 dynsec addClientRole dashboard dashboard_reader
+
+Remove subscribe permissions:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P <ADMIN_PASSWORD> dynsec removeRoleACL <ROLE_NAME> subscribePattern <TOPIC_FILTER> allow
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P <ADMIN_PASSWORD> dynsec removeRoleACL <ROLE_NAME> publishClientReceive <TOPIC_FILTER> allow
+
+
+6. Groups
+---------
+
+A group lets many users share the same role.
+
+Create a group:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P <ADMIN_PASSWORD> dynsec createGroup <GROUP_NAME>
+
+Delete a group:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P <ADMIN_PASSWORD> dynsec deleteGroup <GROUP_NAME>
+
+Add a user to a group:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P <ADMIN_PASSWORD> dynsec addGroupClient <GROUP_NAME> <USERNAME>
+
+Example:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P 906271 dynsec addGroupClient sensor_devices temperature_sensor
+
+Remove a user from a group:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P <ADMIN_PASSWORD> dynsec removeGroupClient <GROUP_NAME> <USERNAME>
+
+Example:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P 906271 dynsec removeGroupClient sensor_devices temperature_sensor
+
+Add a role to a group:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P <ADMIN_PASSWORD> dynsec addGroupRole <GROUP_NAME> <ROLE_NAME>
+
+Example:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P 906271 dynsec addGroupRole sensor_devices temperature_publisher
+
+Remove a role from a group:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P <ADMIN_PASSWORD> dynsec removeGroupRole <GROUP_NAME> <ROLE_NAME>
+
+Example:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P 906271 dynsec removeGroupRole sensor_devices temperature_publisher
+
+
+7. Full Group Example
+---------------------
+
+Goal:
+All users inside sensor_devices can publish to sensors/temperature.
+
+Commands:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P 906271 dynsec createRole temperature_publisher
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P 906271 dynsec addRoleACL temperature_publisher publishClientSend sensors/temperature allow
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P 906271 dynsec createGroup sensor_devices
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P 906271 dynsec addGroupRole sensor_devices temperature_publisher
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P 906271 dynsec createClient temperature_sensor -p 906271
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P 906271 dynsec addGroupClient sensor_devices temperature_sensor
+
+
+8. Blocking / Denying Access
+----------------------------
+
+This project already has default ACL access set to deny, so a user with no matching allow rule cannot publish or subscribe.
+
+To block a user quickly (prevents NEW connections):
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P <ADMIN_PASSWORD> dynsec disableClient <USERNAME>
+
+To unblock:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P <ADMIN_PASSWORD> dynsec enableClient <USERNAME>
+
+IMPORTANT: Disabling a user only prevents NEW connections. Existing connections remain active until they disconnect.
+To force immediate disconnection: restart the broker or disconnect the client.
+
+To remove only one permission from a role:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P <ADMIN_PASSWORD> dynsec removeRoleACL <ROLE_NAME> <ACL_TYPE> <TOPIC> allow
+
+Example:
+mosquitto_ctrl -h localhost -p 8883 --cafile "C:\custom_mqtt_broker\certificates\ca.crt" --cert "C:\custom_mqtt_broker\certificates\admin_client.crt" --key "C:\custom_mqtt_broker\certificates\admin_client.key" -u admin -P 906271 dynsec removeRoleACL temperature_publisher publishClientSend sensors/temperature allow
+
+
+9. Useful ACL Types
+-------------------
+
+publishClientSend:
+Allows a client to publish/send messages to a topic.
+Use this for sensors.
+
+subscribePattern:
+Allows a client to subscribe to a topic filter, for example sensors/#.
+Use this for dashboards.
+
+publishClientReceive:
+Allows a subscribed client to receive messages from a topic.
+Use this with subscribePattern for dashboards.
+
+unsubscribePattern:
+Allows unsubscribe from a topic filter.
+
+
+10. Test Commands
+-----------------
+
+IMPORTANT: All clients now require BOTH certificate AND username/password!
+
+Subscribe as dashboard:
+mosquitto_sub -h localhost -p 8883 --cafile C:\custom_mqtt_broker\certificates\ca.crt --cert C:\custom_mqtt_broker\certificates\client.crt --key C:\custom_mqtt_broker\certificates\client.key -u dashboard -P 906271 -t sensors/#
+
+Publish as temperature sensor:
+mosquitto_pub -h localhost -p 8883 --cafile C:\custom_mqtt_broker\certificates\ca.crt --cert C:\custom_mqtt_broker\certificates\temp_sensor.crt --key C:\custom_mqtt_broker\certificates\temp_sensor.key -u temperature_sensor -P 906271 -t sensors/temperature -m "25.6"
+
+Try a wrong topic (should fail):
+mosquitto_pub -h localhost -p 8883 --cafile C:\custom_mqtt_broker\certificates\ca.crt --cert C:\custom_mqtt_broker\certificates\temp_sensor.crt --key C:\custom_mqtt_broker\certificates\temp_sensor.key -u temperature_sensor -P 906271 -t sensors/humidity -m "60"
+
+Try a disabled user (should fail):
+mosquitto_pub -h localhost -p 8883 --cafile C:\custom_mqtt_broker\certificates\ca.crt --cert C:\custom_mqtt_broker\certificates\temp_sensor.crt --key C:\custom_mqtt_broker\certificates\temp_sensor.key -u temperature_sensor -P 906271 -t sensors/temperature -m "should_fail"
+
+Try without certificate (should fail):
+mosquitto_pub -h localhost -p 8883 --cafile C:\custom_mqtt_broker\certificates\ca.crt -u temperature_sensor -P 906271 -t sensors/temperature -m "no_cert"
+
+Try without password (should fail):
+mosquitto_pub -h localhost -p 8883 --cafile C:\custom_mqtt_broker\certificates\ca.crt --cert C:\custom_mqtt_broker\certificates\temp_sensor.crt --key C:\custom_mqtt_broker\certificates\temp_sensor.key -t sensors/temperature -m "no_password"
+
+
+11. Important Notes
+-------------------
+
+This broker requires DUAL AUTHENTICATION:
+1. Valid client certificate (signed by CA)
+2. Valid username and password from dynamic security
+
+Do not give the admin role to normal sensors or dashboards.
+Only admin should manage users, roles, groups, and ACLs.
+
+Client passwords are stored in: secure-mqtt-broker/client-passwords.txt
+Default password for all clients: 906271
+
+After changing roles or ACLs, use getClient, getRole, and getGroup to verify the result.
+
+When you disable a user:
+- They cannot make NEW connections
+- Existing connections remain active until they disconnect
+- To force immediate disconnect: restart broker or client
+
+Certificates are stored in: C:\custom_mqtt_broker\certificates\
+Each client needs their own certificate (e.g., temp_sensor.crt, client.crt, etc.)
