@@ -60,8 +60,8 @@ This guide shows how to test your secure MQTT broker that requires:
 ```powershell
 mosquitto_sub -h localhost -p 8883 `
   --cafile C:\custom_mqtt_broker\certificates\ca.crt `
-  --cert C:\custom_mqtt_broker\certificates\client.crt `
-  --key C:\custom_mqtt_broker\certificates\client.key `
+  --cert C:\custom_mqtt_broker\certificates\dashboard.crt `
+  --key C:\custom_mqtt_broker\certificates\dashboard.key `
   -u dashboard `
   -P 906271 `
   -t sensors/# `
